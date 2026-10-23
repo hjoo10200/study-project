@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.mycompany.demo.database.dto.Pager;
 import com.mycompany.demo.database.entity.Seller;
 
 @Mapper
@@ -12,7 +13,7 @@ public interface SellerDao {
 
     Seller selectById(Long sellerId);
 
-    List<Seller> selectAll();
+    List<Seller> selectPage(Pager pager,String where);
 
     int update(Seller seller);
 
