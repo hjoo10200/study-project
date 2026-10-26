@@ -1,0 +1,70 @@
+// 로컬 Oracle ORCL 서비스의 ORACLE 스키마에서 조회한 구조입니다.
+// 한글 설명은 컬럼 의미를 바탕으로 추가했습니다.
+Project oracle_database {
+  database_type: 'Oracle'
+  Note: 'ORACLE 스키마의 현재 테이블 구조'
+}
+
+Table member [note: '회원 정보'] {
+  member_id varchar2(15) [pk, not null, note: '회원 아이디']
+  member_name varchar2(20) [not null, note: '회원 이름']
+  password varchar2(100) [not null, note: '비밀번호']
+  email varchar2(50) [note: '회원 이메일 주소']
+  joined_at date [not null, default: `sysdate`, note: '회원가입 일시']
+
+  indexes {
+    email [unique, name: 'uq_member_email']
+  }
+}
+
+Table board [note: '게시판'] {
+  board_id "number(*,0)" [pk, not null, note: '게시물 번호']
+  title varchar2(200) [not null, note: '게시물 제목']
+  content clob [not null, note: '게시물 내용']
+  writer varchar2(15) [not null, note: '작성자 회원 아이디']
+  writed_at date [not null, note: '게시물 작성 일시']
+  product_id "number(*,0)" [not null, note: '상품 번호']
+}
+
+Table product [note: '상품 정보'] {
+  product_id "number(*,0)" [pk, not null, note: '상품 번호']
+  product_name varchar2(200) [not null, note: '상품 이름']
+  price "number(*,0)" [not null, note: '상품 가격']
+  seller_id "number(*,0)" [not null, note: '판매자 번호']
+}
+
+Table seller [note: '판매자 정보'] {
+  seller_id "number(*,0)" [pk, not null, note: '판매자 번호']
+  seller_name varchar2(200) [not null, note: '판매자 이름']
+  email varchar2(254) [not null, note: '판매자 이메일 주소']
+  phone varchar2(15) [not null, note: '판매자 연락처']
+  registered_at date [not null, note: '판매자 등록 일시. 기본값 없음']
+
+  indexes {
+    email [unique, name: 'uq_seller_email']
+  }
+}
+
+Table orders [note: '회원의 주문 정보'] {
+  order_id number(19,0) [pk, not null, note: '주문 번호']
+  member_id "varchar2(50 char)" [not null, note: '주문한 회원 아이디']
+  ordered_at timestamp [not null, default: `CURRENT_TIMESTAMP`, note: '주문 일시']
+}
+
+Table order_item [note: '주문에 포함된 상품 정보'] {
+  order_id "number(*,0)" [not null, note: '주문 번호']
+  product_id "number(*,0)" [not null, note: '주문한 상품 번호']
+  quantity "number(*,0)" [not null, note: '주문 수량']
+  unit_price "number(*,0)" [not null, note: '주문 당시 상품 한 개의 가격']
+
+  indexes {
+    (order_id, product_id) [pk, name: 'pk_order_item']
+  }
+}
+
+Ref fk_board_member: board.writer > member.member_id [delete: no action]
+Ref fk_board_product: board.product_id > product.product_id [delete: no action]
+Ref fk_product_seller: product.seller_id > seller.seller_id [delete: no action]
+Ref fk_orders_member: orders.member_id > member.member_id [delete: no action]
+Ref fk_orders_item_orders: order_item.order_id > orders.order_id [delete: no action]
+Ref fk_orders_item_product: order_item.product_id > product.product_id [delete: no action]

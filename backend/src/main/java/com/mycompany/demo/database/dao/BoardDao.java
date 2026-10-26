@@ -1,21 +1,25 @@
 package com.mycompany.demo.database.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.mycompany.demo.database.dto.Pager;
 import com.mycompany.demo.database.entity.Board;
 
 @Mapper
 public interface BoardDao {
-    int insert(Board board);
+    int insert(@Param("board") Board board);
 
-    Board selectById(Long boardId);
+    Board selectById(@Param("boardId") Long boardId);
 
-    List<Board> selectPage(Pager pager,String where);
+    int selectCount(@Param("where") Map<String,Object> where);  
 
-    int update(Board board);
+    List<Board> selectPage(@Param("pager") Pager pager, @Param("where") Map<String, Object> where);
 
-    int deleteById(Long boardId);
+    int update(@Param("board") Board board);
+
+    int deleteById(@Param("boardId") Long boardId);
 }

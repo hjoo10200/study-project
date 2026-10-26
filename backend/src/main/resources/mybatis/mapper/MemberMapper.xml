@@ -5,7 +5,7 @@
 
     <insert id="insert" parameterType="member">
         INSERT INTO member (member_id, member_name, password, email, joined_at)
-        VALUES (#{memberId}, #{memberName}, #{password}, #{email},
+        VALUES (#{memberId}, #{memberName}, #{password}, #{email,jdbcType=VARCHAR},
                 COALESCE(#{joinedAt}, CURRENT_TIMESTAMP))
     </insert>
 

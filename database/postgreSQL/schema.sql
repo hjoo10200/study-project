@@ -6,7 +6,7 @@ CREATE TABLE board (
     title VARCHAR(200) NOT NULL,
     content TEXT NOT NULL,
     writer VARCHAR(50) NOT NULL,
-    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    writed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     product_id BIGINT NOT NULL,
     CONSTRAINT pk_board PRIMARY KEY (board_id)
 );
@@ -24,7 +24,7 @@ CREATE TABLE order_item (
     order_id BIGINT NOT NULL,
     product_id BIGINT NOT NULL,
     quantity BIGINT NOT NULL,
-    unit_price NUMERIC(12,2) NOT NULL,
+    unit_price INTEGER NOT NULL,
     CONSTRAINT pk_order_item PRIMARY KEY (order_id, product_id),
     CONSTRAINT ck_order_item_price CHECK (unit_price >= 0),
     CONSTRAINT ck_order_item_quantity CHECK (quantity > 0)
@@ -40,7 +40,7 @@ CREATE TABLE orders (
 CREATE TABLE product (
     product_id BIGINT GENERATED ALWAYS AS IDENTITY NOT NULL,
     product_name VARCHAR(200) NOT NULL,
-    price NUMERIC(12,2) NOT NULL,
+    price INTEGER NOT NULL,
     seller_id BIGINT NOT NULL,
     CONSTRAINT pk_product PRIMARY KEY (product_id),
     CONSTRAINT ck_product_price CHECK (price >= 0)
@@ -50,7 +50,7 @@ CREATE TABLE seller (
     seller_id BIGINT GENERATED ALWAYS AS IDENTITY NOT NULL,
     seller_name VARCHAR(100) NOT NULL,
     email VARCHAR(254),
-    phone VARCHAR(20),
+    phone VARCHAR(15),
     registered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     CONSTRAINT pk_seller PRIMARY KEY (seller_id)
 );
@@ -67,7 +67,7 @@ COMMENT ON COLUMN board.board_id IS '게시물 번호';
 COMMENT ON COLUMN board.title IS '게시물 제목';
 COMMENT ON COLUMN board.content IS '게시물 내용';
 COMMENT ON COLUMN board.writer IS '작성자 회원 아이디';
-COMMENT ON COLUMN board.date IS '게시물 작성 일시';
+COMMENT ON COLUMN board.writed_at IS '게시물 작성 일시';
 COMMENT ON COLUMN board.product_id IS '후기 대상 상품 번호';
 COMMENT ON TABLE member IS '회원 정보';
 COMMENT ON COLUMN member.member_id IS '로그인에 사용하는 회원 아이디';

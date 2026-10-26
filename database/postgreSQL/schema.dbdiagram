@@ -1,5 +1,5 @@
 {
-  "version": "3.0.0",
+  "version": "2.0.0",
   "darkMode": true,
   "gridEnabling": false,
   "currentViewName": null,
@@ -16,14 +16,14 @@
       {
         "name": "board",
         "schemaName": "public",
-        "x": 1096,
-        "y": 16
+        "x": 1158.093308971774,
+        "y": -215.43869707661287
       },
       {
         "name": "product",
         "schemaName": "public",
-        "x": 544,
-        "y": 224
+        "x": 347.5723071117402,
+        "y": 221.5240206778791
       },
       {
         "name": "orders",
@@ -34,8 +34,8 @@
       {
         "name": "order_item",
         "schemaName": "public",
-        "x": 1096,
-        "y": 280
+        "x": 1158.093308971774,
+        "y": 188.27124810987902
       },
       {
         "name": "seller",

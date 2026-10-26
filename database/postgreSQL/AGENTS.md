@@ -4,6 +4,19 @@
 
 - README.md 파일을 수정하지 않습니다.
 
+## 타겟 데이터베이스
+- oracle
+
+## 데이터베이스 연결 정보
+
+### Oracle
+
+- 호스트 | `localhost` |
+- 서비스명 | `orcl` |
+- 포트 | `1521` |
+- 사용자 | `oracle` |
+- 비밀번호 | `oracle` | 
+
 ## 파일 생성 및 수정 지침
 - ERD는 DBML 문법으로 schema.dbml 파일에 작성합니다.
 - DDL은 schema.sql 파일에 작성합니다.

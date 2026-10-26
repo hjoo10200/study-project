@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mycompany.demo.database.dao.BoardDao">
+    <insert id="insert" parameterType="board" resultType="_int">
+
+    </insert>
+    
+    <select id="selectById" parameterType="Long" resultType="board">
+    </select>
+
+    <select id="selectCount" parameterType="map" resultType="_int">
+    </select>
+
+    <select id="selectPage" parameterType="map" resultType="board">
+    </select>
+    
+    <update id="update" parameterType="board" resultType="_int">
+    </update>
+
+    <delete id="deleteById" parameterType="Long" resultType="_int">
+    </delete>
+
+</mapper>

@@ -7,7 +7,7 @@ Table board [note: '상품 후기 게시판'] {
   title varchar(200) [not null, note: '게시물 제목']
   content text [not null, note: '게시물 내용']
   writer varchar(50) [not null, note: '작성자 회원 아이디']
-  date timestamp [not null, default: `CURRENT_TIMESTAMP`, note: '게시물 작성 일시']
+  writed_at timestamp [not null, default: `CURRENT_TIMESTAMP`, note: '게시물 작성 일시']
   product_id bigint [not null, note: '후기 대상 상품 번호']
 }
 
@@ -23,7 +23,7 @@ Table order_item [note: '주문에 포함된 상품 정보'] {
   order_id bigint [not null, note: '주문 번호']
   product_id bigint [not null, note: '주문한 상품 번호']
   quantity bigint [not null, note: '주문 수량']
-  unit_price numeric(12,2) [not null, note: '주문 당시 상품 한 개의 가격']
+  unit_price integer [not null, note: '주문 당시 상품 한 개의 가격']
 
   indexes {
     (order_id, product_id) [pk]
@@ -44,7 +44,7 @@ Table orders [note: '회원의 주문 정보'] {
 Table product [note: '상품 정보'] {
   product_id bigint [pk, not null, increment, note: '상품 번호']
   product_name varchar(200) [not null, note: '상품 이름']
-  price numeric(12,2) [not null, note: '현재 상품 가격']
+  price integer [not null, note: '현재 상품 가격']
   seller_id bigint [not null, note: '상품 판매자 번호']
 
   checks {
@@ -56,7 +56,7 @@ Table seller [note: '상품 판매자 정보'] {
   seller_id bigint [pk, not null, increment, note: '판매자 번호']
   seller_name varchar(100) [not null, note: '판매자 이름 또는 상호명']
   email varchar(254) [note: '판매자 이메일 주소']
-  phone varchar(20) [note: '판매자 연락처']
+  phone varchar(15) [note: '판매자 연락처']
   registered_at timestamp [not null, default: `CURRENT_TIMESTAMP`, note: '판매자 등록 일시']
 }
 
