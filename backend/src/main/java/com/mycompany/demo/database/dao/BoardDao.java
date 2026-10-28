@@ -13,7 +13,7 @@ import com.mycompany.demo.database.entity.Board;
 public interface BoardDao {
     int insert(@Param("board") Board board);
 
-    Board selectById(@Param("boardId") Long boardId);
+    Board selectById(@Param("boardId") long boardId);
 
     int selectCount(@Param("where") Map<String,Object> where);  
 
@@ -21,5 +21,5 @@ public interface BoardDao {
 
     int update(@Param("board") Board board);
 
-    int deleteById(@Param("boardId") Long boardId);
+    int deleteById(@Param("boardId") long boardId);
 }

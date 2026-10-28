@@ -1,21 +1,25 @@
 package com.mycompany.demo.database.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.mycompany.demo.database.dto.Pager;
 import com.mycompany.demo.database.entity.Seller;
 
 @Mapper
 public interface SellerDao {
-    int insert(Seller seller);
+    int insert(@Param("seller") Seller seller);
 
-    Seller selectById(Long sellerId);
+    Seller selectById(@Param("sellerId") long sellerId);
 
-    List<Seller> selectPage(Pager pager,String where);
+    int selectCount(@Param("where") Map<String,Object> where);  
 
-    int update(Seller seller);
+    List<Seller> selectPage(@Param("pager") Pager pager, @Param("where") Map<String, Object> where);
 
-    int deleteById(Long sellerId);
+    int update(@Param("seller") Seller seller);
+
+    int deleteById(@Param("sellerId")long sellerId);
 }

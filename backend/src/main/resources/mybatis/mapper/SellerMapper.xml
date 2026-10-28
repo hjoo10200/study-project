@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mycompany.demo.database.dao.SellerDao">
+    <!-- DB의 seller_id를 @Param("seller") 객체의 sellerId 필드에 저장합니다. -->
+    <insert id="insert" parameterType="seller"
+            useGeneratedKeys="true" keyProperty="seller.sellerId" keyColumn="seller_id">
+        INSERT INTO seller (seller_name, email,phone,registered_at)
+        VALUES (#{seller.sellerName}, #{seller.email}, #{seller.phone},
+                COALESCE(#{seller.registeredAt}, CURRENT_TIMESTAMP))
+    </insert>
+    
+    <select id="selectById" parameterType="Long" resultType="seller">
+        SELECT seller_id, seller_name, email,phone,registered_at
+        FROM seller
+        WHERE seller_id = #{sellerId}
+    </select>
+
+    <select id="selectCount" parameterType="map" resultType="int">
+    
+        SELECT COUNT(*)
+        FROM seller
+        <where>
+            <if test="where != null">
+                <if test="where.sellerName != null and where.sellerName!= ''">
+                    AND seller_name LIKE CONCAT('%', #{where.sellerName}, '%')
+                </if>
+            </if>
+        </where>
+    </select>   
+
+    <select id="selectPage" parameterType="map" resultType="seller">
+        SELECT seller_id, seller_name, email,phone,registered_at
+        FROM seller
+        <where>
+            <if test="where != null">
+                <if test="where.sellerName != null and where.sellerName != ''">
+                    AND seller_name LIKE CONCAT('%', #{where.sellerName}, '%')
+                </if>
+            </if>
+        </where>
+        ORDER BY seller_id ASC
+        LIMIT #{pager.rowsPerPage} OFFSET #{pager.startRowIndex}
+    </select>
+    
+    <update id="update" parameterType="seller">
+    UPDATE seller
+    SET seller_name = #{seller.sellerName},
+        email = #{seller.email},
+        phone = #{seller.phone}
+    WHERE seller_id = #{seller.sellerId}
+    </update>
+
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM seller
+        WHERE seller_id = #{sellerId}
+    </delete>
+
+</mapper>

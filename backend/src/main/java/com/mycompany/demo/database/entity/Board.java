@@ -10,10 +10,10 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Board {
-    private Long boardId;
+    private long boardId;
     private String title;
     private String content;
     private String writer;
-    private LocalDateTime date;
-    private Long productId;
+    private LocalDateTime writedAt;
+    private long  productId;
 }

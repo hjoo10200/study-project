@@ -2,23 +2,59 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mycompany.demo.database.dao.BoardDao">
-    <insert id="insert" parameterType="board" resultType="_int">
-
+    <!-- DB의 board_id를 @Param("board") 객체의 boardId 필드에 저장합니다. -->
+    <insert id="insert" parameterType="board"
+            useGeneratedKeys="true" keyProperty="board.boardId" keyColumn="board_id">
+        INSERT INTO board (title, content,writer,writed_at,product_id)
+        VALUES (#{board.title}, #{board.content}, #{board.writer},
+                COALESCE(#{board.writedAt}, CURRENT_TIMESTAMP),#{board.productId})
     </insert>
     
     <select id="selectById" parameterType="Long" resultType="board">
+        SELECT board_id, title, content,writer,writed_at,product_id
+        FROM board
+        WHERE board_id = #{boardId}
     </select>
 
-    <select id="selectCount" parameterType="map" resultType="_int">
-    </select>
+    <select id="selectCount" parameterType="map" resultType="int">
+    
+        SELECT COUNT(*)
+        FROM board
+        <where>
+            <if test="where != null">
+                <if test="where.title != null and where.title!= ''">
+                    AND title LIKE CONCAT('%', #{where.title}, '%')
+                </if>
+            </if>
+        </where>
+    </select>   
 
     <select id="selectPage" parameterType="map" resultType="board">
+        SELECT board_id, title, content,writer,writed_at,product_id
+        FROM board
+        <where>
+            <if test="where != null">
+                <if test="where.title != null and where.title != ''">
+                    AND title LIKE CONCAT('%', #{where.title}, '%')
+                </if>
+            </if>
+        </where>
+        ORDER BY board_id ASC
+        LIMIT #{pager.rowsPerPage} OFFSET #{pager.startRowIndex}
     </select>
     
-    <update id="update" parameterType="board" resultType="_int">
+    <update id="update" parameterType="board">
+    UPDATE board
+    SET title = #{board.title},
+        content = #{board.content},
+        writer = #{board.writer},
+        product_id = #{board.productId}
+    WHERE board_id = #{board.boardId}
     </update>
 
-    <delete id="deleteById" parameterType="Long" resultType="_int">
+    <delete id="deleteById" parameterType="Long">
+        DELETE FROM board
+        WHERE board_id = #{boardId}
     </delete>
 
 </mapper>
