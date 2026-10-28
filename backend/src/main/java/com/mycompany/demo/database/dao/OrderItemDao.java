@@ -1,6 +1,7 @@
 package com.mycompany.demo.database.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -12,11 +13,13 @@ import com.mycompany.demo.database.entity.OrderItem;
 public interface OrderItemDao {
     int insert(OrderItem orderItem);
 
-    OrderItem selectById(String orderItem);
+    OrderItem selectById(@Param("orderId") long orderId, @Param("productId") long productId);
 
-    List<OrderItem> selectPage(Pager pager,String where);
+    int selectCount(@Param("where") Map<String, Object> where);
+
+    List<OrderItem> selectPage(@Param("pager") Pager pager, @Param("where") Map<String, Object> where);
 
     int update(OrderItem orderItem);
 
-    int deleteById(String orderItem);
+    int deleteById(@Param("orderId") long orderId, @Param("productId") long productId);
 }

@@ -5,6 +5,14 @@ description: Java 또는 Spring 프로젝트의 회원아이디 필드에 Bean V
 
 # 회원아이디 검증
 
+## 관련 스킬 참조
+
+- 이 스킬의 호출 이름은 `$member-id-validation`이다.
+- Request DTO와 컨트롤러의 검증 실행까지 작업 범위에 포함되면 [spring-controller](../spring-controller/SKILL.md)를 읽는다.
+- 검증 규칙과 관련해 서비스 계약 변경이 필요한 경우에만 [spring-service](../spring-service/SKILL.md)를 읽는다.
+- 회원아이디 컬럼·PK·매퍼와의 연결을 변경하는 요청이 있으면 [mybatis-dao](../mybatis-dao/SKILL.md)를 읽는다. Bean Validation 요청만으로 DB 제약조건을 변경하지 않는다.
+- 관련 스킬은 해당 작업이 필요한 경우에만 읽으며, 사용자가 정한 검증 규칙과 수정 범위를 우선한다.
+
 회원가입 또는 회원정보 입력 모델의 회원아이디 필드에 아래 규칙을 적용한다. 특정 패키지, 클래스명, 필드명에 의존하지 않는다.
 
 ## 대상 확인

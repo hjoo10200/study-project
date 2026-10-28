@@ -5,21 +5,24 @@
 
     <insert id="insert" parameterType="member">
         INSERT INTO member (member_id, member_name, password, email, joined_at)
-        VALUES (#{memberId}, #{memberName}, #{password}, #{email,jdbcType=VARCHAR},
+        VALUES (#{memberId}, #{memberName}, #{password}, #{email},
                 COALESCE(#{joinedAt}, CURRENT_TIMESTAMP))
     </insert>
 
     <select id="selectById" resultType="member">
         SELECT member_id, member_name, password, email, joined_at
         FROM member
-        WHERE member_id = #{memberId}
+        WHERE member_id = #{memberId} 
     </select>
 
-    <select id="selectCount" resultType="int">
+    <select id="selectCount" resultType="_int">
         SELECT COUNT(*)
         FROM member
         <where>
             <if test="where != null">
+                <if test="where.memberId != null and where.memberId != ''">
+                    AND member_id = #{where.memberId}
+                </if>
                 <if test="where.memberName != null and where.memberName != ''">
                     AND member_name LIKE CONCAT('%', #{where.memberName}, '%')
                 </if>
@@ -33,6 +36,9 @@
         FROM member
         <where>
             <if test="where != null">
+                <if test="where.memberId != null and where.memberId != ''">
+                    AND member_id = #{where.memberId}
+                </if>
                 <if test="where.memberName != null and where.memberName != ''">
                     AND member_name LIKE CONCAT('%', #{where.memberName}, '%')
                 </if>
