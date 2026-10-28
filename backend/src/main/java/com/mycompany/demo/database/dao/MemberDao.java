@@ -26,7 +26,7 @@ public interface MemberDao {
 
     // SelectAll:전체 데이터를 가지고 오는 메소드(R)
     // 그러나 실제 데이터베이스의 데이터는 엄청나게 많을테니 전체조회는 비효율적이다.
-    //  매개변수로 페이지 및 조건을 정의해서 메소드 선언해야한다.
+    //  매개변수로 페이지 및 조건을 정의해서 메소드 선언해야한다. 
     List<Member> selectPage(@Param("pager") Pager pager, @Param("where") Map<String, Object> where);
 
     // Update: 주어진 값으로 수정하는 메소드(U)

@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mycompany.demo.di.service.AiService;
 import com.mycompany.demo.di.service.BoardService;
 import com.mycompany.demo.di.service.Diinterface;
-import com.mycompany.demo.di.service.MemberService;
+import com.mycompany.demo.di.service.DiMemberService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -22,13 +22,13 @@ public class DiController2 {
    
 
     // 의존 주입 방법 2; 생성자 주입 , 이 방식이 일반적으로 추천됨
-    private final MemberService memberService;
+    private final DiMemberService memberService;
     private final BoardService boardService;
     private final AiService aiService;
     private final Diinterface diinterface;
 
     public DiController2(
-        MemberService memberService,
+        DiMemberService memberService,
         BoardService boardService,
         AiService aiService,
         @Qualifier("diinterfacelmplB") Diinterface diinterface) { 

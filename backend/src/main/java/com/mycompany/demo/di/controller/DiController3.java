@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mycompany.demo.di.service.AiService;
 import com.mycompany.demo.di.service.BoardService;
 import com.mycompany.demo.di.service.Diinterface;
-import com.mycompany.demo.di.service.MemberService;
+import com.mycompany.demo.di.service.DiMemberService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +25,7 @@ public class DiController3 {
 
     //의존 주입 방법 3;생성자 주입
     //클래스위에 @RequiredArgsConstructor을 넣으면 필드 선언만있으면 자동으로 생성자 실행됨
-    private final MemberService memberService;
+    private final DiMemberService memberService;
     private final BoardService boardService;
     private final AiService aiService;
     // @Qualifier("diinterfacelmplB") Diinterface 롬복 어노테이션을 사용할때는 qulifier를 통한 구현 클래스 객체 선택 주입 불가,

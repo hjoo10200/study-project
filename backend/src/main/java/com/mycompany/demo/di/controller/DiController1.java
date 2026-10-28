@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.mycompany.demo.di.service.AiService;
 import com.mycompany.demo.di.service.BoardService;
 import com.mycompany.demo.di.service.Diinterface;
-import com.mycompany.demo.di.service.MemberService;
+import com.mycompany.demo.di.service.DiMemberService;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +24,7 @@ public class DiController1 {
     // 의존 주입 방법 1;필드 주입
 
     @Autowired
-    private MemberService memberService;
+    private DiMemberService memberService;
 
     @Autowired
     private  BoardService boardService;
