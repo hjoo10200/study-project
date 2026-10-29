@@ -29,7 +29,12 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	testAnnotationProcessor 'org.projectlombok:lombok'
 	// Source: https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml
-	
+	   // 비밀번호 암호화를 위해 Spring Security 추가
+   implementation 'org.springframework.security:spring-security-crypto'
+   // JWT 생성 및 파싱을 위한 라이브러리
+   implementation 'io.jsonwebtoken:jjwt-api:0.13.0'
+   runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.13.0'
+   runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.13.0'
 }
 
 tasks.named('test') {

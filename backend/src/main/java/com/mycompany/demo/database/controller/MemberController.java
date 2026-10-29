@@ -1,5 +1,6 @@
 package com.mycompany.demo.database.controller;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,7 @@ import com.mycompany.demo.database.dto.Pager;
 import com.mycompany.demo.database.dto.UpdateMemberRequest;
 import com.mycompany.demo.database.entity.Member;
 import com.mycompany.demo.database.service.MemberService;
+import com.mycompany.demo.exception.NoAccountException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,7 +39,15 @@ public class MemberController {
 
 
     @GetMapping("/getmember")
-    public MemberResponse getMember(@RequestParam("memberId") String memberId) {
+    public MemberResponse getMember(@RequestParam("memberId") String memberId) throws SQLException {
+
+        // if(true){ 
+        // // throw new RuntimeException("test execption 발생");
+        // throw new SQLException("DB에서 예외발생");    //일반예외는 throws로 다음단계에 넘기기(try catch문이 필요한데 이거쓰면 너무 복잡해짐)
+        // // throw new NullPointerException("NullPointerException 발생");        
+        // // throw new DuplicatedMemberException("이미 존재하는 아이디입니다.");
+        // // throw new NoAccountException("계좌가 존재하지않습니다");
+        // }
 
         Member member = memberService.getMember(memberId);
 
