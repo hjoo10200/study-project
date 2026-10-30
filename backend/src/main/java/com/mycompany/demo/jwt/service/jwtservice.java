@@ -1,6 +1,7 @@
 package com.mycompany.demo.jwt.service;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.crypto.SecretKey;
@@ -30,7 +31,7 @@ public class jwtservice {
         byte[] bytes = jwtsecretkey.getBytes("UTF-8");
         // 32byte 이상의 길이를 가지고 있어야함
         secretKey = Keys.hmacShaKeyFor(bytes);
-    }
+    }// 
 
     public String createJwt(Member member){
         //유효기간(1년)
@@ -43,7 +44,6 @@ public class jwtservice {
                         .signWith(secretKey)//암호된 문자열을 만들기 위한 시크릿키 설정
                         .compact(); 
 
-
         return jwt;
         
     }
@@ -54,7 +54,7 @@ public class jwtservice {
                                  .verifyWith(secretKey)
                                  .build();
 
-        //jwt 해석해서 claim을 생성
+        //jwt 해석해서 claim을 생성(해석과정에서 3가지 예외발생 가능성)
         Jws<Claims> jws = jwtParser.parseSignedClaims(jwt);
         //여기까지가 성공하면 유효한 jwt임.
 
@@ -64,7 +64,18 @@ public class jwtservice {
 
 
 
-    public Map<String, String> getClaims() {
-        return null;
+    public Map<String, String> getClaims(String jwt) {
+                //jwt 해석자를 생성
+       JwtParser jwtParser = Jwts.parser()
+                                 .verifyWith(secretKey)
+                                 .build();
+
+        //jwt 해석해서 claim을 생성(해석과정에서 3가지 예외발생 가능성)
+        Jws<Claims> jws = jwtParser.parseSignedClaims(jwt);
+        Claims claims = jws.getPayload();
+        Map<String, String> map = new HashMap<>();
+        map.put("memberId", claims.getSubject());
+        map.put("email",claims.get("email").toString());
+        return map;
     }
 }

@@ -1,6 +1,9 @@
 package com.mycompany.demo.jwt.controller;
 
 import com.mycompany.demo.di.service.AiService;
+
+import java.util.Map;
+
 import org.springframework.boot.autoconfigure.amqp.RabbitProperties;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,22 +51,28 @@ public class JwtController {
         orderResponse.setStatus("fail");
        try{
         String jwt = orderRequest.getJwt();
-        jwtService.validateJwt(jwt);
+        jwtService.validateJwt(jwt);// jwt 유효성검사
         orderResponse.setStatus("success");
         orderResponse.setMessege("유효한 토큰");
+        //JWT에서 사용자 ID와 이메일 얻기
+        Map<String,String> map =jwtService.getClaims(jwt);
+        String memberId = map .get("memberId");
+        String email = map .get("email");
+        log.info("memberId:{}",memberId);
+        log.info("email:{}",email);
 
     } catch(MalformedJwtException e){
         //JWT 형식에 위배되었을때
         
-        orderResponse.setMessege("MalformedJwtException(형식 위배):"+" "+e.getMessage());
+        orderResponse.setMessege("형식 위배:"+" "+e.getMessage());
     }
      catch(SignatureException e) {
         //비밀키로 복호화를 할수 없을 경우
-        orderResponse.setMessege("SignatureException(복호화불가):"+" "+e.getMessage());
+        orderResponse.setMessege("복호화불가:"+" "+e.getMessage());
 
     } catch(ExpiredJwtException e){
         //유효기간이 만료된경우
-        orderResponse.setMessege("ExpiredJwtException(유효기간 만료):"+" "+e.getMessage());
+        orderResponse.setMessege("유효기간 만료:"+" "+e.getMessage());
     } 
 
     return orderResponse;

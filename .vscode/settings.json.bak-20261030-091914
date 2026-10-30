@@ -1,0 +1,43 @@
+{
+  "java.compile.nullAnalysis.mode": "disabled",
+  "java.configuration.updateBuildConfiguration": "automatic",
+  "java.server.launchMode": "Standard",
+  "java.configuration.runtimes": [
+    {
+      "default": true,
+      "path": "D:\\DevTools\\Java\\temurin-21",
+      "name": "JavaSE-21"
+    }
+  ],
+  "java.import.gradle.java.home": "D:\\DevTools\\Java\\temurin-21",
+  "java.import.gradle.user.home": "D:\\codes\\study-project\\.local\\gradle",
+  "java.project.resourceFilters": [
+    "node_modules",
+    "\\.git",
+    "\\.local",
+    "\\.gradle"
+  ],
+  "java.import.exclusions": [
+    "**/node_modules/**",
+    "**/.metadata/**",
+    "**/archetype-resources/**",
+    "**/META-INF/maven/**",
+    "**/.local/**",
+    "**/.gradle/**",
+    "**/build/**"
+  ],
+  "gradle.nestedProjects": [
+    "backend",
+    "back-end-homework"
+  ],
+  "files.watcherExclude": {
+    "**/.gradle/**": true,
+    "**/build/**": true,
+    "**/.local/**": true
+  },
+  "search.exclude": {
+    "**/.gradle/**": true,
+    "**/build/**": true,
+    "**/.local/**": true
+  }
+}
