@@ -8,6 +8,15 @@
     },
     {
       "path": "database"
+    },
+    {
+      "path": "node-app-test"
+    },
+    {
+      "path": "front-end"
+    },
+    {
+      "path": "front-end-homework"
     }
   ],
   "settings": {
@@ -48,6 +57,7 @@
       "**/build/**": true,
       "**/.local/**": true
     },
-    "workbench.secondarySideBar.defaultVisibility": "visibleInWorkspace"
+    "workbench.secondarySideBar.defaultVisibility": "visibleInWorkspace",
+    "liveServer.settings.multiRootWorkspaceName": "front-end"
   }
 }
