@@ -33,7 +33,7 @@ public class JwtController {
 
     @PostMapping("/login")
     public LoginResponse login() {
-        // Member로 변환
+        // 학습용으로 고정 회원 정보를 만들어 토큰을 발급한다. 현재는 아이디·비밀번호를 검증하는 로그인 과정이 없다.
         Member member = new Member();
         member.setMemberId("user1");
         member.setEmail("user1@mycompany.com");
@@ -67,7 +67,7 @@ public class JwtController {
         orderResponse.setMessege("형식 위배:"+" "+e.getMessage());
     }
      catch(SignatureException e) {
-        //비밀키로 복호화를 할수 없을 경우
+        // 서명 검증에 실패한 경우(발급 시와 다른 키를 사용했거나 토큰이 변조된 경우 등).
         orderResponse.setMessege("복호화불가:"+" "+e.getMessage());
 
     } catch(ExpiredJwtException e){

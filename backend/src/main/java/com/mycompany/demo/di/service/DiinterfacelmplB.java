@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import lombok.extern.slf4j.Slf4j;
 
 @Service 
-@Primary //우선적으로 이 인터페이스 구현 클래스를 주입하라는것
+@Primary // 같은 타입의 후보가 여러 개일 때, 단일 빈 주입에서 이 빈을 우선 선택한다.
 @Slf4j
 public class DiinterfacelmplB implements Diinterface {
 

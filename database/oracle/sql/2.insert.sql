@@ -3,13 +3,13 @@
 -- --member 테이블의 데이터 저장
 -- ----------------------------
 
--- -- 회원 한 명 삽입: 완전한 컬럼 리스트의 값을 저장함(메모리에만 저장,아직 DB저장x)
+-- -- 회원 한 명 삽입: 자동 커밋이 꺼져 있으면 현재 트랜잭션의 미확정 변경이다. 같은 세션에서는 조회할 수 있다.
 -- insert into member (member_id, member_name, password, email, joined_at)
 -- values ('Hong123', '홍길동', 'test1234', 'hong@example.com', sysdate);
--- -- 작업내용을 물리적 DB에 반영(미반영시 ROLLBACK)
+-- -- COMMIT은 변경을 확정한다. COMMIT 전에는 ROLLBACK으로 취소할 수 있으며, COMMIT하지 않았다고 즉시 자동 취소되지는 않는다.
 -- commit;
 
--- -- 컬럼 리스트를 생략
+-- -- 컬럼 목록을 생략하면 VALUES는 테이블 정의의 컬럼 순서에 맞춰야 한다. 명시적으로 컬럼을 적는 편이 안전하다.
 -- insert into member 
 -- values ('Hong1234', '홍길동', 'test1234', 'hong1@example.com', sysdate);
 -- commit;
@@ -20,7 +20,7 @@
 -- values ('Hong12345', '홍길동', 'test1234', 'hong2@example.com');
 -- commit;
 
--- --NULL을 가질수 있는 컬럼은 생략가능
+-- -- NULL을 허용하는 컬럼에는 명시적으로 NULL을 넣거나 컬럼 목록에서 생략할 수 있다. 생략 시 기본값이 없으면 NULL이 들어간다.
 -- insert into member (member_id, member_name, password, email)
 -- values ('Hong123456', '홍길동', 'test1234', null);
 -- commit;
@@ -91,7 +91,7 @@ BEGIN
         v_ordered_at := TIMESTAMP '2026-01-01 09:00:00'
                         + NUMTODSINTERVAL(MOD(i - 1, 290), 'DAY');
 
-        -- 1. 회원: 이름, 이메일, 가입일을 서로 다르게 생성합니다.
+        -- 1. 회원: 아이디·이름·이메일은 순번으로 구분하고, 가입일은 365개 날짜를 순환해 사용합니다.
         INSERT INTO member (member_id, member_name, password, email, joined_at)
         VALUES (
             v_member_id, '회원' || i, 'Sample1234!',
@@ -152,7 +152,7 @@ END;
 
 COMMIT;
 
--- 삽입 결과 확인: 최초 실행 시 각 테이블이 1,000건입니다.
+-- 삽입 결과 확인: 실행 전 테이블이 비어 있었다면 각 테이블이 1,000건입니다. 기존 행이 있으면 그 수만큼 더 많습니다.
 SELECT 'member' AS table_name, COUNT(*) AS row_count FROM member
 UNION ALL SELECT 'seller', COUNT(*) FROM seller
 UNION ALL SELECT 'product', COUNT(*) FROM product

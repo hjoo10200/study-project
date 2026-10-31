@@ -4,7 +4,7 @@ import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Service("implA") //관리 이름을 바꿀수있다. (기존의 이름이 가독성이 떨어지거나 장황하면 바꿔도 된다.)  
+@Service("implA") // 빈 이름을 implA로 지정하므로 @Qualifier("implA")로 선택할 수 있다.
 @Slf4j
 public class DiinterfacelmplA implements Diinterface {
 

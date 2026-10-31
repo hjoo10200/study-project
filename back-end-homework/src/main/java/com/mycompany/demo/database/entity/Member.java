@@ -16,7 +16,7 @@ public class Member {
 
     private String memberName;
 
-    @ToString.Exclude
+    @ToString.Exclude // Lombok의 toString 출력에서만 제외한다. JSON 응답에서 이 필드를 숨기는 설정은 아니다.
     private String password;
 
     private String email;

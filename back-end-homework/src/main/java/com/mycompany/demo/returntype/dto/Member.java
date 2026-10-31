@@ -7,8 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
-@Data // Getter/Setter/equals/toString 메소드를 추가
-@AllArgsConstructor // 매개값있는 생성자 추가
+@Data // 컴파일 시 getter, setter, equals, hashCode, toString 등을 생성한다.
+@AllArgsConstructor // 모든 인스턴스 필드를 선언 순서대로 받는 생성자를 생성한다.
 @NoArgsConstructor  // 기본 생성자 추가
 public class Member {
     private int bno;

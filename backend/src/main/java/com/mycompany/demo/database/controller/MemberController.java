@@ -43,7 +43,7 @@ public class MemberController {
 
         // if(true){ 
         // // throw new RuntimeException("test execption 발생");
-        // throw new SQLException("DB에서 예외발생");    //일반예외는 throws로 다음단계에 넘기기(try catch문이 필요한데 이거쓰면 너무 복잡해짐)
+        // throw new SQLException("DB에서 예외발생");    // SQLException은 체크 예외이므로 catch하거나 throws로 전파해야 한다. throws는 처리 자체를 수행하지 않는다.
         // // throw new NullPointerException("NullPointerException 발생");        
         // // throw new DuplicatedMemberException("이미 존재하는 아이디입니다.");
         // // throw new NoAccountException("계좌가 존재하지않습니다");

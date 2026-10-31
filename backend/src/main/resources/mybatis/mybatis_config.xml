@@ -2,9 +2,9 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <settings> <!--mybatis쓸 때 필수 설정-->
+    <settings> <!-- 이 프로젝트의 매핑 설정: member_id 같은 컬럼명을 memberId 프로퍼티에 자동 매핑한다. -->
         <setting name="mapUnderscoreToCamelCase" value="true"/> 
-        <setting name="jdbcTypeForNull" value="NULL"/>
+        <setting name="jdbcTypeForNull" value="NULL"/> <!-- 별도 JDBC 타입을 지정하지 않은 null 매개변수에 적용할 JDBC 타입 -->
     </settings>
     <typeAliases>
         <typeAlias alias="board" type="com.mycompany.demo.database.entity.Board"/>

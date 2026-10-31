@@ -1,5 +1,5 @@
 -- DDL: Data Definition Language
--- create(생성), alter(수정), drop(삭제)
+-- CREATE(객체 생성), ALTER(구조 변경), DROP(객체 삭제). Oracle DDL은 암시적 COMMIT을 발생시키므로 일반 DML처럼 ROLLBACK할 수 없다.
 
 -- 테이블 삭제: 자식 테이블부터 삭제합니다.
 drop table order_item;

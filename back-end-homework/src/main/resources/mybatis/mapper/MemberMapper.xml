@@ -27,7 +27,7 @@
         </where>
     </select>
 
-    <!-- where: memberId(아이디 일치), memberName(이름 부분 검색) -->
+    <!-- where.memberName으로 이름 부분 검색. 현재 이 목록 쿼리에는 memberId 검색 조건이 없다. -->
     <select id="selectPage" resultType="member">
         SELECT member_id, member_name, password, email, joined_at
         FROM member

@@ -16,17 +16,16 @@ import com.mycompany.demo.database.entity.Member;
 public interface MemberDao {
 
     //Insert: 데이터 저장 메소드(C)
-    int insert(Member member);  //2개이상의 데이터가 반영될때는 매개변수로 엔티티
+    int insert(Member member);  // 한 회원의 여러 필드 값을 객체로 전달한다. 반환값은 삽입된 행 수이다.
 
     // Select: 기본키로 조회하는 메소드(R)
-    Member selectById(@Param("memberId") String memberId); //하나의 데이터가 반영될때는 매개변수로 컬럼
+    Member selectById(@Param("memberId") String memberId); // 기본키 값 하나를 전달한다. @Param의 이름은 SQL의 #{memberId}와 연결된다.
 
     //조건에 해당하는 행수를 반환하는 메소드
     int selectCount(@Param("where") Map<String,Object> where);  
 
-    // SelectAll:전체 데이터를 가지고 오는 메소드(R)
-    // 그러나 실제 데이터베이스의 데이터는 엄청나게 많을테니 전체조회는 비효율적이다.
-    //  매개변수로 페이지 및 조건을 정의해서 메소드 선언해야한다.
+    // 검색 조건(where)에 맞는 행 중 한 페이지를 조회한다.
+    // 전체 건수(selectCount)와 같은 조건을 사용해야 페이지 수와 목록이 일치한다.
     List<Member> selectPage(@Param("pager") Pager pager, @Param("where") Map<String, Object> where);
 
     // Update: 주어진 값으로 수정하는 메소드(U)

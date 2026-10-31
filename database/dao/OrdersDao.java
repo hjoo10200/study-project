@@ -17,10 +17,10 @@ public interface OrdersDao {
     // Select: 기본키로 조회하는 메소드(R)
     Orders selectById(long orderId);
 
-    // 행수를 반환하는 메소드
+    // 검색 조건(where)에 맞는 전체 행 수를 반환한다(페이지 수 계산용).
     int selectCount(@Param("where") Map<String, Object> where);
 
-    // Select: 전체 데이터를 가지고 오는 메소드(R)
+    // Select: 검색 조건(where)에 맞는 데이터 중 pager가 지정한 한 페이지를 조회한다(R).
     List<Orders> selectPage(@Param("pager") Pager pager, @Param("where") Map<String, Object> where);
 
     // Update: 주어진 값으로 수정하는 메소드(U)
