@@ -57,6 +57,7 @@
       "**/build/**": true,
       "**/.local/**": true
     },
-    "workbench.secondarySideBar.defaultVisibility": "visibleInWorkspace"
+    "workbench.secondarySideBar.defaultVisibility": "visibleInWorkspace",
+    "liveServer.settings.multiRootWorkspaceName": "front-end"
   }
 }
