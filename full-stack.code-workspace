@@ -8,6 +8,9 @@
     },
     {
       "path": "database"
+    },
+    {
+      "path": "node-app-test"
     }
   ],
   "settings": {
