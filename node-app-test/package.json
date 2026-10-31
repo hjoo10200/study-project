@@ -10,9 +10,6 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
-  "dependencies": {
-    "jquery": "^4.0.0"
-  },
   "devDependencies": {
     "bootstrap": "^5.3.8"
   }

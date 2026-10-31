@@ -11,6 +11,12 @@
     },
     {
       "path": "node-app-test"
+    },
+    {
+      "path": "front-end"
+    },
+    {
+      "path": "front-end-homework"
     }
   ],
   "settings": {
