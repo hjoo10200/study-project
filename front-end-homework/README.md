@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# ch2 복습
 
-## Getting Started
+실습 안내: http://localhost:3000/Ch2Component
 
-First, run the development server:
-
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```powershell
+npm.cmd run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 준비된 부분
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+각 예제 페이지에 원본 수준의 간단한 Tailwind 제목줄과 빈 본문만 준비했습니다.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 구조는 직접 정하기
 
-## Learn More
+폴더 트리, 정해진 자식 파일 이름, 완성된 import 경로는 제공하지 않습니다.
+힌트를 보고 파일 이름과 저장 위치를 정한 뒤 직접 만들고 연결하세요.
 
-To learn more about Next.js, take a look at the following resources:
+- 컴포넌트 실습: 자식 두 개가 필요합니다. 하나는 파일 하나로, 다른 하나는 자기 폴더로 관리해보세요.
+- CSS 모듈 실습: 부모와 자식이 각자 스타일을 가져야 합니다. 컴포넌트와 스타일을 어떻게 묶을지 생각해보세요.
+- 이벤트 실습: 자식 버튼을 별도 컴포넌트로 분리하고 부모가 전달한 함수를 실행하도록 연결하세요.
+- 표현식, 조건, 인라인 스타일, 주석은 준비된 페이지의 빈 본문에서 연습하세요.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 복습 순서
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+기본 틀 확인 → 힌트로 구조 생각하기 → 필요한 폴더·파일 생성 → import 연결 → 내용 작성 → 브라우저 확인
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+구조는 하나로 정해져 있지 않습니다. 자신이 정한 위치와 import 경로가 맞고, 각 파일의 역할을 설명할 수 있으면 됩니다.

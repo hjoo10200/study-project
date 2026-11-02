@@ -17,9 +17,13 @@
     },
     {
       "path": "front-end-homework"
+    },
+    {
+      "path": "front_end_test"
     }
   ],
   "settings": {
+    "java.gradle.buildServer.enabled": "off",
     "java.configuration.updateBuildConfiguration": "automatic",
     "java.compile.nullAnalysis.mode": "disabled",
     "java.server.launchMode": "Standard",
