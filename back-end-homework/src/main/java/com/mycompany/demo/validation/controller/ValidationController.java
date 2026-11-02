@@ -19,6 +19,7 @@ public class ValidationController {
      }
     
     @PostMapping("/join")
+    // @RequestBody가 없으므로 폼·쿼리 파라미터를 DTO에 바인딩한 뒤 @Valid로 제약조건을 검사한다.
     public String join(@Valid JoinRequest joinRequest){
 
         log.info(joinRequest.toString());

@@ -86,10 +86,10 @@ public class DatabaseController {
 
     @PostMapping("/write-board")
     public Board writeBoard(@RequestBody Board board) {
-        log.info(board.toString());  //board_id: 0
+        log.info(board.toString());  // INSERT 전의 요청 값. long의 기본값은 0이지만 요청에 번호가 있으면 그 값이 들어 있다.
 
         boardDao.insert(board);
-        log.info(board.toString());  //board_id: 실제 저장된 번호
+        log.info(board.toString());  // 매퍼에 useGeneratedKeys와 keyProperty가 설정되어 있다면 DB가 생성한 번호가 board에 반영된다.
 
         Board dbBoard = boardDao.selectById(board.getBoardId());
         return dbBoard;

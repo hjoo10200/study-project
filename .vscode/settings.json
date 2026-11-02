@@ -5,11 +5,11 @@
   "java.configuration.runtimes": [
     {
       "default": true,
-      "path": "C:\\gen-ai-course\\tools\\jdk-21",
+      "path": "D:\\DevTools\\Java\\temurin-21",
       "name": "JavaSE-21"
     }
   ],
-  "java.import.gradle.java.home": "C:\\gen-ai-course\\tools\\jdk-21",
+  "java.import.gradle.java.home": "D:\\DevTools\\Java\\temurin-21",
   "java.import.gradle.user.home": "D:\\codes\\study-project\\.local\\gradle",
   "java.project.resourceFilters": [
     "node_modules",

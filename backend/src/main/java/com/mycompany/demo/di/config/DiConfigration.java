@@ -11,7 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class DiConfigration {
     @Bean
-    public BoardService getBoardService(){ //반환객체를 관리하는 이름은 메소드이름이다. 클래스의 첫철자를 소문자로 바꾼 이름이 아니다.
+    public BoardService getBoardService(){ // @Bean에 이름을 지정하지 않으면 메서드명인 getBoardService가 빈 이름이 된다.
         log.info("실행");
         return new BoardService();
     }

@@ -1,10 +1,10 @@
--- board 전체 행을 게시물 번호 내림차순으로 정렬하여 페이징합니다.
+-- product_id가 10 이하인 게시물을 게시물 번호 내림차순으로 정렬하여 페이징합니다(OFFSET/FETCH는 Oracle 12c 이상).
 -- 페이지 번호: 1, 페이지당 행 수: 10
 -- 건너뛸 행 수 = (페이지 번호 - 1) * 페이지당 행 수
 SELECT board_id, title, content, writer, writed_at, product_id
 FROM board
 where PRODUCT_ID<=10
-ORDER BY board_id desc --반드시 order by로 정렬하는게 필요하다. 이경우 가장 최신으로 보여준다.
+ORDER BY board_id desc -- 유일한 PK로 정렬하여 같은 값 사이의 순서도 확정한다. 번호 내림차순이며 작성 시각순을 보장하는 것은 아니다.
 OFFSET (1 - 1) * 10 ROWS 
 FETCH NEXT 10 ROWS ONLY;
 

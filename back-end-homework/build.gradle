@@ -31,7 +31,7 @@ dependencies {
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	testAnnotationProcessor 'org.projectlombok:lombok'
 	// Source: https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml
-	   // 비밀번호 암호화를 위해 Spring Security 추가
+	   // BCrypt 같은 비밀번호 단방향 해시 기능을 제공한다. 이 의존성만으로 HTTP 인증·인가가 설정되지는 않는다.
    implementation 'org.springframework.security:spring-security-crypto'
    // JWT 생성 및 파싱을 위한 라이브러리
    implementation 'io.jsonwebtoken:jjwt-api:0.13.0'

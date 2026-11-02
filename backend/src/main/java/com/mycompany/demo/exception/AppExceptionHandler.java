@@ -15,8 +15,8 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@RestControllerAdvice // 복수개의 예외가 실행되지 않기에 구체적인 예외가 우선이며 그 예외가 발생하지않으면 광역 예외가 후순위로 발생한다.
-public class AppExceptionHandler { //예외처리가 필요한 이유는 200응답이 나타나도 실제 응답은 오류가 있을때를 위해 오류를 명확하게 하기위함
+@RestControllerAdvice // 컨트롤러 밖으로 전파된 예외를 공통 처리한다. 이 클래스의 같은 예외 후보 중에서는 더 구체적인 타입의 핸들러가 선택된다.
+public class AppExceptionHandler { // 예외별 HTTP 상태와 응답 본문을 정한다. 아래 코드는 리소스 없음에 404, 나머지 처리 예외에 500을 반환한다.
     
     @ExceptionHandler(SQLException.class)
     public ResponseEntity<Map<String, Object>>  handleSQLException(SQLException e){ //exception 객체가 들어옴
@@ -74,7 +74,7 @@ public class AppExceptionHandler { //예외처리가 필요한 이유는 200응�
     }
 
     @ExceptionHandler(NoAccountException.class)
-    public ResponseEntity<Map<String, Object>> handleNoAccountException(NoAccountException e){ //DuplicatedMemberIdException 객체가 들어옴
+    public ResponseEntity<Map<String, Object>> handleNoAccountException(NoAccountException e){ // 발생한 NoAccountException 객체를 받는다.
     Map <String,Object> map = new HashMap<>();
     map.put("status","fail"); 
     map.put("message",e.getMessage());      

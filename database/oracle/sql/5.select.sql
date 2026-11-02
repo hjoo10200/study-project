@@ -22,10 +22,10 @@ from order_item
 where order_id <= 3
 order by order_id asc, product_id desc; 
 -------------------------------------------------------------------------------------------
---행의 갯수 조회
+-- COUNT(order_id)는 NULL이 아닌 order_id 수를 센다. 이 컬럼은 NOT NULL이므로 전체 행 수인 COUNT(*)와 같다.
 select count(order_id)
 from order_item;
---값의 갯수 조회
+-- COUNT(email)은 NULL이 아닌 이메일 수를 센다(중복 값도 각각 센다).
 select count(email)
 from member;
 -------------------------------------------------------------------------------------------
@@ -35,19 +35,19 @@ from order_item
 where order_id <= 3
 group by order_id;
 
---잡계함수 이전의 모든 컬럼은 group by에 있어야한다.
+-- SELECT에서 집계하지 않고 출력하는 컬럼은 GROUP BY에 포함해야 한다. 집계함수보다 앞에 쓰였는지는 관계없다.
 select order_id, PRODUCT_ID, count(*)
 from order_item
 where order_id <= 3
 group by order_id, PRODUCT_ID;
 
--- 여러컬림을 계산후 집계
+-- 각 행의 수량 × 주문 당시 단가를 계산한 뒤, 주문별로 합산한다.
 select order_id, sum(QUANTITY*unit_price)
 from order_item
 where order_id <= 3
 group by order_id;
 -------------------------------------------------------------------------------------------
---집계결과에 조건달기
+-- WHERE는 그룹화 전 개별 행을, HAVING은 GROUP BY로 집계한 그룹을 필터링한다.
 select order_id, sum(QUANTITY*unit_price)
 from order_item
 where order_id <= 3

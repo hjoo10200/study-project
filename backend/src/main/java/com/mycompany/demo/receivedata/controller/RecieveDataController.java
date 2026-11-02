@@ -41,6 +41,7 @@ public class RecieveDataController {
         return "실행결과"; 
     }
 
+    // produces는 응답 형식을 뜻한다. 여기서 @RequestParam은 JSON 본문이 아닌 요청 파라미터를 읽는다.
     @PostMapping(value="/method3",produces=MediaType.TEXT_XML_VALUE) 
     public Dto1 method3(
     @RequestParam("bno") String bno,
@@ -81,6 +82,7 @@ public class RecieveDataController {
         dto.setBno(bno);
         dto.setBtitle(btitle);
         dto.setBcontent(bcontent);
+        // 이 예제는 업로드 파일의 메타데이터만 응답하며, 파일 내용을 디스크나 DB에 저장하지 않는다.
         dto.setFileName(battach.getOriginalFilename());
         dto.setFileType(battach.getContentType());
 

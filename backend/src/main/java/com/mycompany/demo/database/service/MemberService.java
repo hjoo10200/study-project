@@ -18,7 +18,7 @@ public class MemberService {
     //필드 선언
     private final MemberDao memberDao ;
 
-    // 생성자를 통해서 MemberDao 선언
+    // Spring이 생성자 매개변수로 MyBatis의 MemberDao 구현 프록시를 주입한다.
     public MemberService(MemberDao memberDao){
         this.memberDao = memberDao;
     }
@@ -29,6 +29,7 @@ public class MemberService {
         return member;
     }   
 
+    // 현재는 password를 별도 해시 변환 없이 INSERT한다. 암호화 라이브러리를 추가하는 것만으로 해시 저장이 적용되지는 않는다.
     public int join(Member member){
         return memberDao.insert(member);
 

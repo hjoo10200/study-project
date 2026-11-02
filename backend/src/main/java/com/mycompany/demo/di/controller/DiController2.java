@@ -21,7 +21,7 @@ public class DiController2 {
 
    
 
-    // 의존 주입 방법 2; 생성자 주입 , 이 방식이 일반적으로 추천됨
+    // 생성자 주입: 필요한 의존성을 매개변수로 받고 final 필드에 보관한다. 생성자가 하나이면 @Autowired를 생략할 수 있다.
     private final DiMemberService memberService;
     private final BoardService boardService;
     private final AiService aiService;
@@ -33,7 +33,7 @@ public class DiController2 {
         AiService aiService,
         @Qualifier("diinterfacelmplB") Diinterface diinterface) { 
 
-        //interface의 구현 클래스 객체를 주입하기 위해서는 @Qulifier("소문자로 시작하는 클래스 명(key 네임)")를 매개변수의 인터페이스이름 앞에 부기한다. 
+        // 같은 인터페이스의 빈이 여러 개이므로 @Qualifier로 후보를 좁힌다. 여기서는 B의 기본 빈 이름을 사용한다.
         this.memberService = memberService;
         this.boardService = boardService;
         this.aiService = aiService;

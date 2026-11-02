@@ -34,6 +34,7 @@ public class JoinRequest {
     @Size(min = 8, max = 64, message = "비밀번호는 8~64자여야 합니다.")
     private String mpassword;
 
+    // int는 null을 표현하지 못하므로 @NotNull로 누락을 검출할 수 없다. 누락 구분이 필요하면 Integer와 함께 사용해야 한다.
     @NotNull(message = "나이는 필수 입력 항목입니다.")
     @Min(value = 0, message = "나이는 0 이상이어야 합니다.")
     @Max(value = 120, message = "나이는 120 이하여야 합니다.")

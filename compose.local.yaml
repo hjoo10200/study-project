@@ -13,6 +13,7 @@ services:
       - "127.0.0.1:5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql/data
+      # 이 초기화 SQL은 DB 데이터 디렉터리가 비어 있는 최초 초기화 때만 실행된다. 기존 볼륨에는 재시작해도 다시 적용되지 않는다.
       - ./database/postgreSQL/schema.sql:/docker-entrypoint-initdb.d/001-schema.sql:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]

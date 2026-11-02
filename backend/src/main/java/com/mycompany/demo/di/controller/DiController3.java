@@ -24,12 +24,12 @@ public class DiController3 {
 
 
     //의존 주입 방법 3;생성자 주입
-    //클래스위에 @RequiredArgsConstructor을 넣으면 필드 선언만있으면 자동으로 생성자 실행됨
+    // @RequiredArgsConstructor는 초기화되지 않은 final 필드와 필요한 @NonNull 필드의 생성자를 컴파일 시 생성한다. Spring이 그 생성자로 주입한다.
     private final DiMemberService memberService;
     private final BoardService boardService;
     private final AiService aiService;
-    // @Qualifier("diinterfacelmplB") Diinterface 롬복 어노테이션을 사용할때는 qulifier를 통한 구현 클래스 객체 선택 주입 불가,
-    // @Primary가 있는 클래스가 기본적으로 주입
+    // Lombok은 기본적으로 필드의 @Qualifier를 생성자 매개변수에 복사하지 않는다. 명시적 생성자나 lombok.copyableAnnotations 설정으로 지정할 수 있다.
+    // 이 필드에는 선택 조건이 없으므로, 현재 후보 중 @Primary가 붙은 DiinterfacelmplB가 주입된다.
     private final Diinterface diinterface;
 
 

@@ -113,9 +113,9 @@ response.addHeader("Content-Disposition", "attachment; filename = \"generatedIma
 
 //응답 본문에 파일 데이터 추가 ====================================
 // 읽고 응답본문에 출력하는 단위   
-   int chuncksize = 1024; //1kb
+   int chuncksize = 1024; // 1024바이트 = 1KiB
 
-// 데이터 버퍼 (1kb에 해당되는 데이터가 저장되는 배열)
+// 최대 1KiB를 담는 버퍼. read()가 매번 배열 전체를 채우는 것은 아니다.
    byte[] data = new byte[chuncksize]; 
 
 // 입력 스트림 얻기
@@ -130,7 +130,7 @@ while (true) {
    // 최대 청크 크기만큼 읽고, 실제로 읽은 바이트 수를 반환
    // 읽은 데이터는 데이터 버퍼 저장
    int num = fis.read(data);
-   // 읽은 데이터를 본문에 출력
+   // -1은 파일 끝을 뜻한다. 마지막에는 버퍼 일부만 채워질 수 있으므로 실제 읽은 num바이트만 출력한다.
    if(num== -1) break;
    os.write(data, 0, num);
 
