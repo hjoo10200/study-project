@@ -2,10 +2,16 @@ import Image from "next/image";
 
 export default function Home() {
   return (
+    <div className="p-4">
+      <section className="overflow-hidden rounded-lg border border-gray-200 bg-white text-gray-900 shadow-sm">
+        <header className="border-b border-gray-200 bg-gray-100 px-4 py-3">
+          <h2 className="font-semibold">Home</h2>
+        </header>
+        <div className="p-4">
     <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <p>나 잡아봐라</p>
+
       <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
+        <Image // <img>를 쓸순있지만 <image>를 쓰는게 최적화덕분에 더 효율적이다. <img>는 원본이미지를 브라우저에서 그림의 크기등을 조절하지만 <image>는 서버에서 이미 크기등을 조절해서 클라이언트에 제공함
           className="dark:invert h-5 w-[100px]"
           src="/next.svg"
           alt="Next.js logo"
@@ -65,6 +71,9 @@ export default function Home() {
           </a>
         </div>
       </main>
+    </div>
+        </div>
+      </section>
     </div>
   );
 }

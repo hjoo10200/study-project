@@ -1,5 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import AppHeader from "./AppHeader";
+import AppMenu from "./AppMenu";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,12 +19,18 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) { //children에 page.js의 home 컴포넌트로 들어간다.
-  return (      //component 객체(UI)
+  return (      //component 객체(UI):실제로는 자바스크립트
     <html //JSX
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >    
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+      <AppHeader></AppHeader>
+      <div className="flex flex-1">
+        <AppMenu />
+        <div className="min-w-0 flex-1">{children}</div>
+      </div>
+      </body>
     </html>
   ); 
 }
