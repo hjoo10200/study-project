@@ -2,6 +2,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import AppHeader from "./AppHeader";
 import AppMenu from "./AppMenu";
+import ColorContextProvider from "@/Contexts/ColorContext";
+import AuthContextProvider from "@/Contexts/AuthContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,14 +25,19 @@ export default function RootLayout({ children }) { //children에 page.js의 home
     <html //JSX
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
-    >    
+    >
       <body className="min-h-full flex flex-col">
-      <AppHeader></AppHeader>
-      <div className="flex flex-1">
-        <AppMenu />
-        <div className="min-w-0 flex-1">{children}</div>
-      </div>
+        {/* ColorContext 전역 상태를 모든 컴포넌트에게 제공 */}
+        <ColorContextProvider>
+          <AuthContextProvider>
+            <AppHeader></AppHeader>
+            <div className="flex flex-1">
+              <AppMenu />
+              <div className="min-w-0 flex-1">{children}</div>
+            </div>
+          </AuthContextProvider>
+        </ColorContextProvider>
       </body>
     </html>
-  ); 
+  );
 }
