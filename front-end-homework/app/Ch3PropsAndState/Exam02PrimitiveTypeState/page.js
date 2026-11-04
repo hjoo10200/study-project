@@ -1,4 +1,5 @@
 "use client"
+import { ColorContext } from "@/Contexts/ColorContext";
 import { useState } from "react";
 // TODO: 필요한 클라이언트 지시문과 import를 이 파일 위쪽에 직접 작성하세요.
 
@@ -23,7 +24,7 @@ export default function Exam02PrimitiveTypeState() {
                 <h2 className="font-semibold">Exam02PrimitiveTypeState</h2>
             </header>
             <div className="space-y-2 p-4">
-                <h1 style={{color: color, fontSize: "2em"}}>{number}</h1>
+                <h1 style={{color: ColorContext.color, fontSize: "2em"}}>{number}</h1>
                 <div>
                     <button
                         type="button"

@@ -78,6 +78,42 @@ export default function AppMenu() {
                         </Link>
                     </div>
                 </details>
+                <details className="overflow-hidden rounded border border-zinc-700 bg-zinc-900">
+                    <summary className="cursor-pointer bg-zinc-700 px-3 py-2 font-semibold hover:bg-zinc-600">
+                        Ch4LifeCycle
+                    </summary>
+                    <div className="space-y-1 p-2">
+                        <Link prefetch={false} href="/Ch4LifeCycle" className="block break-words rounded px-3 py-2 hover:bg-zinc-800">
+                            Ch4LifeCycle
+                        </Link>
+                    </div>
+                </details>
+                <details className="overflow-hidden rounded border border-zinc-700 bg-zinc-900">
+                    <summary className="cursor-pointer bg-zinc-700 px-3 py-2 font-semibold hover:bg-zinc-600">
+                        ch5Rounting
+                    </summary>
+                    <div className="space-y-1 p-2">
+                        <Link prefetch={false} href="/ch5Rounting/exam01Navigation" className="block break-words rounded px-3 py-2 hover:bg-zinc-800">
+                            Exam01Navigation
+                        </Link>
+                        <Link prefetch={false} href="/ch5Rounting/exam02QueryString" className="block break-words rounded px-3 py-2 hover:bg-zinc-800">
+                            Exam02QueryString
+                        </Link>
+                    </div>
+                </details>
+                <details className="overflow-hidden rounded border border-zinc-700 bg-zinc-900">
+                    <summary className="cursor-pointer bg-zinc-700 px-3 py-2 font-semibold hover:bg-zinc-600">
+                        Ch7GlobalState
+                    </summary>
+                    <div className="space-y-1 p-2">
+                        <Link prefetch={false} href="/Ch7GlobalState/exam01ColorContext" className="block break-words rounded px-3 py-2 hover:bg-zinc-800">
+                            Exam01ColorContext
+                        </Link>
+                        <Link prefetch={false} href="/Ch7GlobalState/Exam02AuthContext" className="block break-words rounded px-3 py-2 hover:bg-zinc-800">
+                            Exam02AuthContext
+                        </Link>
+                    </div>
+                </details>
             </nav>
         </aside>
     );
