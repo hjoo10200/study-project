@@ -1,14 +1,17 @@
 -- 대상 데이터베이스: PostgreSQL
 -- schema.dbml을 기준으로 생성한 신규 DB용 DDL
 
-CREATE TABLE board (
-    board_id BIGINT GENERATED ALWAYS AS IDENTITY NOT NULL,
+CREATE TABLE review (
+    review_id BIGINT GENERATED ALWAYS AS IDENTITY NOT NULL,
     title VARCHAR(200) NOT NULL,
     content TEXT NOT NULL,
     writer VARCHAR(50) NOT NULL,
     writed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     product_id BIGINT NOT NULL,
-    CONSTRAINT pk_board PRIMARY KEY (board_id)
+    file_name VARCHAR(255),
+    file_type VARCHAR(255),
+    file_data BYTEA,
+    CONSTRAINT pk_review PRIMARY KEY (review_id)
 );
 
 CREATE TABLE member (
@@ -55,20 +58,23 @@ CREATE TABLE seller (
     CONSTRAINT pk_seller PRIMARY KEY (seller_id)
 );
 
-ALTER TABLE board ADD CONSTRAINT fk_board_member FOREIGN KEY (writer) REFERENCES member (member_id);
-ALTER TABLE board ADD CONSTRAINT fk_board_product FOREIGN KEY (product_id) REFERENCES product (product_id);
+ALTER TABLE review ADD CONSTRAINT fk_review_member FOREIGN KEY (writer) REFERENCES member (member_id);
+ALTER TABLE review ADD CONSTRAINT fk_review_product FOREIGN KEY (product_id) REFERENCES product (product_id);
 ALTER TABLE order_item ADD CONSTRAINT fk_order_item_orders FOREIGN KEY (order_id) REFERENCES orders (order_id);
 ALTER TABLE order_item ADD CONSTRAINT fk_order_item_product FOREIGN KEY (product_id) REFERENCES product (product_id);
 ALTER TABLE orders ADD CONSTRAINT fk_orders_member FOREIGN KEY (member_id) REFERENCES member (member_id);
 ALTER TABLE product ADD CONSTRAINT fk_product_seller FOREIGN KEY (seller_id) REFERENCES seller (seller_id);
 
-COMMENT ON TABLE board IS '상품 후기 게시판';
-COMMENT ON COLUMN board.board_id IS '게시물 번호';
-COMMENT ON COLUMN board.title IS '게시물 제목';
-COMMENT ON COLUMN board.content IS '게시물 내용';
-COMMENT ON COLUMN board.writer IS '작성자 회원 아이디';
-COMMENT ON COLUMN board.writed_at IS '게시물 작성 일시';
-COMMENT ON COLUMN board.product_id IS '후기 대상 상품 번호';
+COMMENT ON TABLE review IS '상품 후기 게시판';
+COMMENT ON COLUMN review.review_id IS '게시물 번호';
+COMMENT ON COLUMN review.title IS '게시물 제목';
+COMMENT ON COLUMN review.content IS '게시물 내용';
+COMMENT ON COLUMN review.writer IS '작성자 회원 아이디';
+COMMENT ON COLUMN review.writed_at IS '게시물 작성 일시';
+COMMENT ON COLUMN review.product_id IS '후기 대상 상품 번호';
+COMMENT ON COLUMN review.file_name IS '첨부파일 원본 이름';
+COMMENT ON COLUMN review.file_type IS '첨부파일 MIME 유형';
+COMMENT ON COLUMN review.file_data IS '첨부파일 바이너리 데이터';
 COMMENT ON TABLE member IS '회원 정보';
 COMMENT ON COLUMN member.member_id IS '로그인에 사용하는 회원 아이디';
 COMMENT ON COLUMN member.member_name IS '회원 이름';

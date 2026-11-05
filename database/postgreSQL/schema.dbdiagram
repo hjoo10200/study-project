@@ -42,6 +42,12 @@
         "schemaName": "public",
         "x": 16,
         "y": 248
+      },
+      {
+        "name": "review",
+        "schemaName": "public",
+        "x": 16,
+        "y": 490
       }
     ],
     "tableGroupCollapseStates": [],
@@ -133,6 +139,36 @@
           "seller_id"
         ],
         "secondTableName": "seller",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "writer"
+        ],
+        "firstTableName": "review",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "member_id"
+        ],
+        "secondTableName": "member",
+        "secondSchemaName": "public",
+        "secondRelation": "1",
+        "checkPoints": []
+      },
+      {
+        "firstFieldNames": [
+          "product_id"
+        ],
+        "firstTableName": "review",
+        "firstSchemaName": "public",
+        "firstRelation": "*",
+        "secondFieldNames": [
+          "product_id"
+        ],
+        "secondTableName": "product",
         "secondSchemaName": "public",
         "secondRelation": "1",
         "checkPoints": []

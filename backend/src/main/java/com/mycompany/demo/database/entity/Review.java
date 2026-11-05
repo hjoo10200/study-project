@@ -9,11 +9,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Board {
-    private long boardId;
+public class Review {
+    private long reviewId;
     private String title;
     private String content;
     private String writer;
     private LocalDateTime writedAt;
     private long  productId;
+    private String fileName;
+    private String fileType;
+    private byte[] fileData;
 }

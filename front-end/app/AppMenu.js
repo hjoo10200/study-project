@@ -117,6 +117,16 @@ export default function AppMenu() {
                         </Link>
                     </div>
                 </details>
+                <details className="overflow-hidden rounded border border-zinc-700 bg-zinc-900">
+                    <summary className="cursor-pointer bg-zinc-700 px-3 py-2 font-semibold hover:bg-zinc-600">
+                        Ch8RestAPI
+                    </summary>
+                    <div className="space-y-1 p-2">
+                        <Link href="/Ch8RestAPI/Exam01Review" className="block break-words rounded px-3 py-2 hover:bg-zinc-800">
+                            Exam01Review
+                        </Link>
+                    </div>
+                </details>
             </nav>
         </aside>
     );
