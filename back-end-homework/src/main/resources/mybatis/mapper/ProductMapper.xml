@@ -21,7 +21,7 @@
                 <if test="where.productName != null and where.productName !=''">
                     AND product_name LIKE CONCAT('%', #{where.productName}', '%')
                 </if>
-            <if>
+            </if>
         </where>
     </select>
 
@@ -33,6 +33,7 @@
                 <if test="where.productname !=null and where.productName != ''">
                     AND product_name  LIKE CONCAT('%', #{where.productName}', '%')
                 </if>
+            </if>
         </where>
         ORDER BY product_id ASC
         LIMIT #{page.rowsPerPage} OFFSET #{pager.startRowIndex} 

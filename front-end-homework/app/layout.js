@@ -2,6 +2,7 @@ import "./globals.css";
 import AppHeader from "./AppHeader";
 import AppMenu from "./AppMenu";
 import ColorContextProvider from "@/Contexts/ColorContext";
+import AuthContextProvider from "@/Contexts/AuthContext";
 
 export const metadata = {
   title: { default: "프론트엔드 복습 | 컴포넌트·props·state", template: "%s | 프론트엔드 복습" },
@@ -13,11 +14,13 @@ export default function RootLayout({ children }) {
     <html lang="ko" className="h-full antialiased">
       <body className="flex min-h-full flex-col bg-slate-50 font-sans text-slate-900">
         <ColorContextProvider>
+        <AuthContextProvider>
           <AppHeader />
           <div className="flex flex-1">
             <AppMenu />
             <main className="min-w-0 flex-1 p-4">{children}</main>
           </div>
+        </AuthContextProvider>
         </ColorContextProvider>
       </body>
     </html>
