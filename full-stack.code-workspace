@@ -1,6 +1,10 @@
 {
   "folders": [
     {
+      "name": "복습 문서",
+      "path": "docs"
+    },
+    {
       "path": "backend"
     },
     {
