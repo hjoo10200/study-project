@@ -79,12 +79,16 @@ export default function Exam01Review() {
                                 <tr key={review.reviewId} className="border-b border-zinc-700 hover:bg-zinc-800/50">
                                     <td className="whitespace-nowrap px-2.5 py-3">{review.reviewId}</td>
                                     <td title={review.title} className="px-2.5 py-3">
-                                        {review.title.length > 25 ? `${review.title.slice(0, 25)}....` : review.title}
+                                        <Link href={`/Ch8RestAPI/Exam01Review/ReviewDetail?reviewId=${review.reviewId}`} className="text-sky-400 hover:text-yellow-400 hover:underline">
+                                            {review.title.length > 25 ? `${review.title.slice(0, 25)}....` : review.title}
+                                        </Link>
                                     </td>
                                     <td className="whitespace-nowrap px-2.5 py-3">{review.writer}</td>
                                     <td title={review.writedAt?.replace("T", " ")} className="whitespace-nowrap px-2.5 py-3 tabular-nums text-zinc-400">{review.writedAt?.slice(0, 10)}</td>
                                     <td className="whitespace-nowrap px-2.5 py-3">{review.productId}</td>
-                                    <td className="whitespace-nowrap px-2.5 py-3">{review.fileName || "없음"}</td>
+                                    <td className="whitespace-nowrap px-2.5 py-3">
+                                        {review.fileName ? <span role="img">💾</span> : "-"}
+                                    </td>
                                 </tr>
                             ))}
                             {reviews.length === 0 && (

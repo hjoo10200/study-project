@@ -24,6 +24,10 @@ public class ReviewService {
         return reviewDao.insert(review);
     }
 
+    public Review getReview(long reviewId) {
+        return reviewDao.selectById(reviewId);
+    }
+
     public int pagingTotalRows(Map<String, Object> where) {
         return reviewDao.selectCount(where);
     }

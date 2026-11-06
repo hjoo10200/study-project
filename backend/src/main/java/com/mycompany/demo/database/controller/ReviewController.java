@@ -4,6 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.server.ResponseStatusException;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.demo.database.dto.Pager;
+import com.mycompany.demo.database.dto.ReviewDetailResponse;
 import com.mycompany.demo.database.dto.ReviewListItemResponse;
 import com.mycompany.demo.database.dto.ReviewWriteRequest;
 import com.mycompany.demo.database.dto.ReviewWriteResponse;
@@ -77,6 +82,37 @@ public class ReviewController {
             "pager",pager,
             "data", listReviewResponse);
         return map;
+    }
+
+    @GetMapping("/image")
+    public ResponseEntity<byte[]> image(@RequestParam("reviewId") long reviewId) {
+        Review review = reviewService.getReview(reviewId);
+        if (review == null || review.getFileData() == null || review.getFileData().length == 0) {
+            return ResponseEntity.notFound().build();
+        }
+        if (review.getFileType() == null || !review.getFileType().startsWith("image/")) {
+            return ResponseEntity.status(HttpStatus.UNSUPPORTED_MEDIA_TYPE).build();
+        }
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(review.getFileType()))
+                .header("X-Content-Type-Options", "nosniff")
+                .body(review.getFileData());
+    }
+
+    @GetMapping("/detail")
+    public ReviewDetailResponse detail(@RequestParam("reviewId") long reviewId) {
+        Review review = reviewService.getReview(reviewId);
+
+
+        ReviewDetailResponse response = new ReviewDetailResponse();
+        response.setReviewId(review.getReviewId());
+        response.setTitle(review.getTitle());
+        response.setContent(review.getContent());
+        response.setWriter(review.getWriter());
+        response.setProductId(review.getProductId());
+        response.setFileName(review.getFileName());
+        response.setWritedAt(review.getWritedAt());
+        return response;
     }
 }
 
