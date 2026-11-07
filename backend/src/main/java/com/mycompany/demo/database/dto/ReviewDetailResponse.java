@@ -17,4 +17,5 @@ public class ReviewDetailResponse {
     private LocalDateTime writedAt;
     private long productId;
     private String fileName;
+    private boolean deleteFile;
 }

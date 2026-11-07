@@ -36,4 +36,8 @@ public class ReviewService {
         return reviewDao.selectPage(pager, where);
     }
 
+    public int updateReview(Review review){
+        return reviewDao.update(review);
+    }
+
 }

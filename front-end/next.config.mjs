@@ -3,8 +3,8 @@ const nextConfig = {
   reactStrictMode: false
 ,
   /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
+  cacheComponents: false,
+  partialPrefetching: false,
   reactCompiler: true,
   async rewrites() {
     return [
