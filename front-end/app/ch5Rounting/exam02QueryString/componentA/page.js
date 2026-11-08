@@ -1,17 +1,8 @@
 "use client"
 
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
 
 export default function ComponentA() {
-    return (
-        <Suspense fallback={<p className="p-4">로딩 중...</p>}>
-            <ComponentAContent />
-        </Suspense>
-    );
-}
-
-function ComponentAContent() {
 
     const querystring = useSearchParams();
 

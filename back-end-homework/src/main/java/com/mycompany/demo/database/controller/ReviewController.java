@@ -4,11 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.server.ResponseStatusException;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,8 +22,8 @@ import com.mycompany.demo.database.service.ReviewService;
 
 import lombok.extern.slf4j.Slf4j;
 
-@RestController 
-@RequestMapping ("/review")
+@RestController
+@RequestMapping("/review")
 @Slf4j
 public class ReviewController {
     private final ReviewService reviewService;
@@ -50,23 +47,32 @@ public class ReviewController {
     }
 
     @GetMapping("/list")
-    public Map<String, Object> list(@RequestParam(value="pageNo",defaultValue="1") int pageNo) {
-        // TODO 1: 검색 조건을 준비한다. 검색 없는 목록부터 시작한다.
+    public Map<String, Object> list(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo) {
+        Map<String, Object> where = null;
+        int totalRows = reviewService.pagingTotalRows(where);
+        Pager pager = new Pager(10, 5, totalRows, pageNo);
 
-        // TODO 2: 서비스로 전체 건수를 조회한다.
+        List<Review> list = reviewService.listReview(pager, where);
 
-        // TODO 3: 페이지당 10행·그룹당 5페이지 기준으로 Pager를 생성한다.
+        List<ReviewListItemResponse> listReviewResponse = new ArrayList<>();
+        for (Review dbReview : list) {
+            ReviewListItemResponse reviewResponse = new ReviewListItemResponse();
+            reviewResponse.setReviewId(dbReview.getReviewId());
+            reviewResponse.setTitle(dbReview.getTitle());
+            reviewResponse.setWriter(dbReview.getWriter());
+            reviewResponse.setWritedAt(dbReview.getWritedAt());
+            reviewResponse.setProductId(dbReview.getProductId());
+            reviewResponse.setFileName(dbReview.getFileName());
 
-        // TODO 4: 서비스에 Pager와 검색 조건을 전달해 현재 페이지를 조회한다.
+            listReviewResponse.add(reviewResponse);
 
-        // TODO 5: 응답 목록을 만들고, 반복문에서 각 Review를 ReviewListItemResponse로 변환해 추가한다.
+        }
 
-        // TODO 6: 목록 항목에는 reviewId, title, writer, writedAt, productId, fileName을 담는다.
+        Map<String, Object> map = Map.of(
+                "pager", pager,
+                "data", listReviewResponse);
 
-        // TODO 7: pager와 data를 키로 갖는 Map을 만들어 반환한다.
-
-        // 실습 완료 후 아래 임시 예외를 삭제하고 자신의 코드로 응답한다.
-        throw new UnsupportedOperationException("list 엔드포인트 실습을 완성해 주세요.");
+        return map;
     }
 
     @GetMapping("/image")
@@ -87,17 +93,16 @@ public class ReviewController {
 
     @GetMapping("/detail")
     public ReviewDetailResponse detail(@RequestParam("reviewId") long reviewId) {
-        // TODO 1: 서비스로 reviewId에 해당하는 리뷰를 조회한다.
+        Review review = reviewService.getReview(reviewId);
 
-        // TODO 2: 조회 결과가 없을 때의 처리를 작성한다. HTTP 404로 응답한다.
-
-        // TODO 3: ReviewDetailResponse를 만들고 조회한 엔티티의 값을 옮긴다.
-
-        // TODO 4: reviewId, title, content, writer, writedAt, productId, fileName을 담아 반환한다.
-
-        // 실습 완료 후 아래 임시 예외를 삭제하고 자신의 코드로 응답한다.
-        throw new UnsupportedOperationException("detail 엔드포인트 실습을 완성해 주세요.");
+        ReviewDetailResponse response = new ReviewDetailResponse();
+        response.setReviewId(review.getReviewId());
+        response.setTitle(review.getTitle());
+        response.setContent(review.getContent());
+        response.setWriter(review.getWriter());
+        response.setProductId(review.getProductId());
+        response.setFileName(review.getFileName());
+        response.setWritedAt(review.getWritedAt());
+        return response;
     }
 }
-
-

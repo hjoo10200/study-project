@@ -128,6 +128,12 @@ export default function AppMenu() {
                         <Link prefetch={false} href="/Ch8RestAPI/Exam01Review/ReviewWrite" className="block break-words rounded px-3 py-2 hover:bg-zinc-800">
                             ReviewWrite
                         </Link>
+                        <Link prefetch={false} href="/Ch8RestAPI/Exam01Review/ReviewDetail" className="block break-words rounded px-3 py-2 hover:bg-zinc-800">
+                            ReviewDetail
+                        </Link>
+                        <Link prefetch={false} href="/Ch8RestAPI/Exam01Review/ReviewUpdate" className="block break-words rounded px-3 py-2 hover:bg-zinc-800">
+                            ReviewUpdate
+                        </Link>
                     </div>
                 </details>
             </nav>

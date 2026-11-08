@@ -4,17 +4,9 @@ import { reviewFileUrl, reviewDetail } from "@/apis/reviewApi";
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ReviewDetail() {
-  return (
-    <Suspense fallback={<p className="p-6 text-sm text-zinc-400">후기를 불러오는 중입니다.</p>}>
-      <ReviewDetailContent />
-    </Suspense>
-  );
-}
-
-function ReviewDetailContent() {
   const searchParams = useSearchParams();
   const reviewId = searchParams.get("reviewId");
   const [failedImage, setFailedImage] = useState(null);

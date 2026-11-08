@@ -4,9 +4,9 @@ import { reviewDetail, Update } from "@/apis/reviewApi";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from "next/navigation";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-function ReviewUpdateForm() {
+export default function ReviewUpdate() {
 
     // ReviewDetail이 보낸 데이터 받기
     const reviewId = useSearchParams().get("reviewId");
@@ -91,7 +91,7 @@ function ReviewUpdateForm() {
             await Update(formData);
             router.push("/Ch8RestAPI/Exam01Review/ReviewDetail?reviewId=" + reviewId)
         } catch (error) {
-            console.loge(error)
+            console.error(error);
         }
     };
 
@@ -163,8 +163,4 @@ function ReviewUpdateForm() {
             </div>
         </section>
     );
-}
-
-export default function ReviewUpdate() {
-    return <Suspense fallback={<p className="p-4 text-sm">수정 화면을 준비하고 있습니다…</p>}><ReviewUpdateForm /></Suspense>;
 }
