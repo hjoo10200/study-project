@@ -24,12 +24,20 @@ public class ReviewService {
         return reviewDao.insert(review);
     }
 
+    public Review getReview(long reviewId) {
+        return reviewDao.selectById(reviewId);
+    }
+
     public int pagingTotalRows(Map<String, Object> where) {
         return reviewDao.selectCount(where);
     }
 
     public List<Review> listReview(Pager pager, Map<String, Object> where) {
         return reviewDao.selectPage(pager, where);
+    }
+
+    public int updateReview(Review review){
+        return reviewDao.update(review);
     }
 
 }
