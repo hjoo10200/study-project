@@ -27,6 +27,7 @@
     }
   ],
   "settings": {
+    "java.import.gradle.java.home": "C:/gen-ai-course/tools/jdk-21",
     "java.gradle.buildServer.enabled": "off",
     "java.configuration.updateBuildConfiguration": "automatic",
     "java.compile.nullAnalysis.mode": "disabled",

@@ -1,9 +1,9 @@
 "use client";
 
-import { reviewFileUrl, reviewDetail } from "@/apis/reviewApi";
+import { reviewFileUrl, reviewDetail,reviewDelete } from "@/apis/reviewApi";
 import Image from "next/image";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function ReviewDetail() {
@@ -32,6 +32,17 @@ export default function ReviewDetail() {
     };
     work();
   }, [reviewId]);
+
+  const deleterouter=useRouter()
+
+  const handleDelete =  async () => {
+    try{
+   const response= await reviewDelete(reviewId);
+   deleterouter.push("/Ch8RestAPI/Exam01Review")
+  } catch(error){
+    console.log(error);
+  }
+};
 
   return (
     <section className="min-w-0 w-full rounded-lg border border-zinc-700 bg-zinc-900 text-zinc-100 shadow-sm">
@@ -92,7 +103,7 @@ export default function ReviewDetail() {
               <Link href={`/Ch8RestAPI/Exam01Review/ReviewUpdate?reviewId=${review.reviewId}`} className="rounded-lg border border-zinc-600 px-4 py-2 text-xs font-semibold transition hover:bg-zinc-800 focus-visible:outline-2 focus-visible:outline-yellow-400">
                 수정하기
               </Link>
-              <button type="button" className="rounded-lg border border-red-400/30 px-4 py-2 text-xs font-semibold text-red-400 transition hover:bg-red-400/10">
+              <button onClick={handleDelete} type="button" className="rounded-lg border border-red-400/30 px-4 py-2 text-xs font-semibold text-red-400 transition hover:bg-red-400/10">
                 삭제하기
               </button>
             </div>

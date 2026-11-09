@@ -48,7 +48,7 @@ public class jwtservice {
         
     }
 
-    public void validateJwt(String jwt){
+    public boolean validateJwt(String jwt){
         //jwt 해석자를 생성
        JwtParser jwtParser = Jwts.parser()
                                  .verifyWith(secretKey)
@@ -57,7 +57,7 @@ public class jwtservice {
         // 서명된 JWT를 파싱하고 서명과 만료 시각을 검증한다. 형식·서명·만료 오류 외에도 지원하지 않는 토큰 등의 예외가 발생할 수 있다.
         Jws<Claims> jws = jwtParser.parseSignedClaims(jwt);
         // 파싱·서명·만료 검사 통과를 뜻한다. 사용자 존재 여부나 주문 권한까지 확인한 것은 아니다.
-
+        return true;
     
     }
 

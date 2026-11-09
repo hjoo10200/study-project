@@ -67,7 +67,7 @@ public class AppExceptionHandler { // 예외별 HTTP 상태와 응답 본문을 
     map.put("methodName", "handleDuplicatedMemberIdException");
         
     return ResponseEntity
-            .status(HttpStatus.INTERNAL_SERVER_ERROR)
+            .status(HttpStatus.CONFLICT)
             .body(map);
 
     

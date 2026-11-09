@@ -125,6 +125,12 @@ export default function AppMenu() {
                         <Link href="/Ch8RestAPI/Exam01Review" className="block break-words rounded px-3 py-2 hover:bg-zinc-800">
                             Exam01Review
                         </Link>
+                        <Link href="/Ch8RestAPI/Exam02MemberJoin" className="block break-words rounded px-3 py-2 hover:bg-zinc-800">
+                            Exam02MemberJoin
+                        </Link>
+                        <Link href="/Ch8RestAPI/Exam03MemberLogin" className="block break-words rounded px-3 py-2 hover:bg-zinc-800">
+                            Exam03MemberLogin
+                        </Link>
                     </div>
                 </details>
             </nav>

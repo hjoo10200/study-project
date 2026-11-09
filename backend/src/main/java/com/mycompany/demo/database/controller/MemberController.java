@@ -16,35 +16,36 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.demo.database.dto.JoinMemberRequest;
+import com.mycompany.demo.database.dto.MemberLoginRequest;
+import com.mycompany.demo.database.dto.MemberLoginResponse;
 import com.mycompany.demo.database.dto.MemberResponse;
 import com.mycompany.demo.database.dto.Pager;
 import com.mycompany.demo.database.dto.UpdateMemberRequest;
 import com.mycompany.demo.database.entity.Member;
 import com.mycompany.demo.database.service.MemberService;
-import com.mycompany.demo.exception.NoAccountException;
+import com.mycompany.demo.jwt.service.jwtservice;
 
 import lombok.extern.slf4j.Slf4j;
 
-
-
-@RestController 
-@RequestMapping ("/database")
-@Slf4j 
+@RestController
+@RequestMapping("/database")
+@Slf4j
 public class MemberController {
+    private final jwtservice jwtservice;
     private final MemberService memberService;
 
-    public MemberController(MemberService memberService) {
-    this.memberService = memberService;
-}
-
-
+    public MemberController(MemberService memberService, jwtservice jwtservice) {
+        this.memberService = memberService;
+        this.jwtservice = jwtservice;
+    }
     @GetMapping("/getmember")
     public MemberResponse getMember(@RequestParam("memberId") String memberId) throws SQLException {
 
-        // if(true){ 
+        // if(true){
         // // throw new RuntimeException("test execption 발생");
-        // throw new SQLException("DB에서 예외발생");    // SQLException은 체크 예외이므로 catch하거나 throws로 전파해야 한다. throws는 처리 자체를 수행하지 않는다.
-        // // throw new NullPointerException("NullPointerException 발생");        
+        // throw new SQLException("DB에서 예외발생"); // SQLException은 체크 예외이므로 catch하거나
+        // throws로 전파해야 한다. throws는 처리 자체를 수행하지 않는다.
+        // // throw new NullPointerException("NullPointerException 발생");
         // // throw new DuplicatedMemberException("이미 존재하는 아이디입니다.");
         // // throw new NoAccountException("계좌가 존재하지않습니다");
         // }
@@ -52,24 +53,23 @@ public class MemberController {
         Member member = memberService.getMember(memberId);
 
         MemberResponse memberResponse = new MemberResponse(
-            member.getMemberId(),
-            member.getMemberName(),
-            member.getEmail(),
-            member.getJoinedAt()
-        );
+                member.getMemberId(),
+                member.getMemberName(),
+                member.getEmail(),
+                member.getJoinedAt());
 
-    return memberResponse;
-}
+        return memberResponse;
+    }
+
     @PostMapping("/joinmember")
     public MemberResponse joinmember(@RequestBody JoinMemberRequest joinMemberRequest) {
         Member member = new Member(
-            joinMemberRequest.getMemberId(),
-            joinMemberRequest.getMemberName(),
-            joinMemberRequest.getPassword(),
-            joinMemberRequest.getEmail(),
-            null
-        );
-        
+                joinMemberRequest.getMemberId(),
+                joinMemberRequest.getMemberName(),
+                joinMemberRequest.getPassword(),
+                joinMemberRequest.getEmail(),
+                null);
+
         memberService.join(member);
 
         Member dbMember = memberService.getMember(joinMemberRequest.getMemberId());
@@ -106,30 +106,27 @@ public class MemberController {
     }
 
     @DeleteMapping("/deletemember")
-    public Map<String, Object> deleteMember(@RequestParam("memberId") String memberId){
+    public Map<String, Object> deleteMember(@RequestParam("memberId") String memberId) {
         int rows = memberService.deleteMember(memberId);
         Map<String, Object> map = new HashMap<>();
-        if(rows==1){
-
+        if (rows == 1) {
             map.put("status", "success");
             return map;
-        } else{
+        } else {
             map.put("status", "fail");
             return map;
-
         }
-
     }
 
     @GetMapping("/listmember")
-        public Map<String, Object> listmember(@RequestParam(value="pageNo",defaultValue="1") int pageNo) {
-        Map<String, Object> where = null; 
-        int totalRows= memberService.pagingTotalRows(where);
-        Pager pager = new Pager(10,5,totalRows, pageNo);
+    public Map<String, Object> listmember(@RequestParam(value = "pageNo", defaultValue = "1") int pageNo) {
+        Map<String, Object> where = null;
+        int totalRows = memberService.pagingTotalRows(where);
+        Pager pager = new Pager(10, 5, totalRows, pageNo);
 
-        List<Member> list= memberService.listMember(pager,where);
+        List<Member> list = memberService.listMember(pager, where);
         List<MemberResponse> listMemberResponse = new ArrayList<>();
-        for (Member dbMember: list) {
+        for (Member dbMember : list) {
             MemberResponse memberResponse = new MemberResponse();
             memberResponse.setMemberId(dbMember.getMemberId());
             memberResponse.setMemberName(dbMember.getMemberName());
@@ -137,12 +134,38 @@ public class MemberController {
             memberResponse.setEmail(dbMember.getEmail());
 
             listMemberResponse.add(memberResponse);
-
         }
+
         Map<String, Object> map = Map.of(
-            "pager",pager,
-            "data", listMemberResponse);
+                "pager", pager,
+                "data", listMemberResponse);
         return map;
     }
-    
+
+    @PostMapping("/loginmember")
+    public MemberLoginResponse login(@RequestBody MemberLoginRequest request) {
+        Member member = new Member();
+        member.setMemberId(request.getMemberId());
+        member.setPassword(request.getPassword());
+
+        String result = memberService.login(member);
+        log.info(result);
+        MemberLoginResponse response = new MemberLoginResponse();
+        if (result.equals("success")) {
+            response.setStatus("success");
+            response.setMemberId(request.getMemberId());
+            Member dbMember = memberService.getMember(request.getMemberId());
+            String jwt = jwtservice.createJwt(dbMember);
+            response.setJwt(jwt);
+        } else if (result.equals("wrongMemberId")) {
+            response.setStatus("fail");
+            response.setMessage("아이디가 존재하지않음");
+        } else if (result.equals("wrongpassword")) {
+            response.setStatus("fail");
+            response.setMessage("패스워드가 존재하지않음");
+        }
+
+        log.info(request.toString());
+        return response;
+    }
 }

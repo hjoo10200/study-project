@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import Link from "next/link";
 import { getReviewList } from "@/apis/reviewApi";
+import { AuthContext } from "@/Contexts/AuthContext";
+import Link from "next/link";
+import { useContext, useEffect, useState } from "react";
 
 export default function Exam01Review() {
     const [reviews, setReviews] = useState([]);
@@ -39,7 +40,8 @@ export default function Exam01Review() {
         console.log("ZZZZZZZZZZZZZZZ");
         return () => { active = false; };
     }, [pageNo]);
-
+    // AuthContext 전역 상태 얻기
+    const authContext = useContext(AuthContext);
     return (
         <div className="min-w-0 max-w-full p-4">
             <section className="w-full overflow-hidden rounded-lg border border-zinc-700 bg-zinc-900 text-zinc-100 shadow-sm">
@@ -51,9 +53,11 @@ export default function Exam01Review() {
                         <caption className="pb-3 text-left font-medium text-zinc-300">
                             <div className="flex items-center justify-between gap-4">
                                 <span>상품 후기 목록{pager ? ` (전체 ${pager.totalRows}개)` : ""}</span>
-                                <Link href="/Ch8RestAPI/Exam01Review/ReviewWrite" className="rounded-lg bg-yellow-400 px-4 py-2 text-sm font-semibold text-zinc-950 transition hover:bg-yellow-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-400">
-                                    글쓰기
-                                </Link>
+                                {authContext.memberId &&
+                                    <Link href="/Ch8RestAPI/Exam01Review/ReviewWrite" className="rounded-lg bg-yellow-400 px-4 py-2 text-sm font-semibold text-zinc-950 transition hover:bg-yellow-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-400">
+                                        글쓰기
+                                    </Link>
+                                }
                             </div>
                         </caption>
                         <colgroup>
@@ -79,9 +83,11 @@ export default function Exam01Review() {
                                 <tr key={review.reviewId} className="border-b border-zinc-700 hover:bg-zinc-800/50">
                                     <td className="whitespace-nowrap px-2.5 py-3">{review.reviewId}</td>
                                     <td title={review.title} className="px-2.5 py-3">
-                                        <Link href={`/Ch8RestAPI/Exam01Review/ReviewDetail?reviewId=${review.reviewId}`} className="text-sky-400 hover:text-yellow-400 hover:underline">
-                                            {review.title.length > 25 ? `${review.title.slice(0, 25)}....` : review.title}
-                                        </Link>
+                                        {authContext.memberId ?
+
+                                            <Link href={`/Ch8RestAPI/Exam01Review/ReviewDetail?reviewId=${review.reviewId}`} className="text-sky-400 hover:text-yellow-400 hover:underline">
+                                                {review.title.length > 25 ? `${review.title.slice(0, 25)}....` : review.title}
+                                            </Link> : <span>{review.title.length > 25 ? `${review.title.slice(0, 25)}....` : review.title}</span>}
                                     </td>
                                     <td className="whitespace-nowrap px-2.5 py-3">{review.writer}</td>
                                     <td title={review.writedAt?.replace("T", " ")} className="whitespace-nowrap px-2.5 py-3 tabular-nums text-zinc-400">{review.writedAt?.slice(0, 10)}</td>

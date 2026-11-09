@@ -10,14 +10,17 @@ import java.util.Map;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.mycompany.demo.database.dto.Pager;
+import com.mycompany.demo.database.dto.ReviewDeleteResponse;
 import com.mycompany.demo.database.dto.ReviewDetailResponse;
 import com.mycompany.demo.database.dto.ReviewListItemResponse;
 import com.mycompany.demo.database.dto.ReviewUpdateRequest;
@@ -26,6 +29,7 @@ import com.mycompany.demo.database.dto.ReviewWriteRequest;
 import com.mycompany.demo.database.dto.ReviewWriteResponse;
 import com.mycompany.demo.database.entity.Review;
 import com.mycompany.demo.database.service.ReviewService;
+import com.mycompany.demo.jwt.service.jwtservice;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,10 +37,12 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping("/review")
 @Slf4j
 public class ReviewController {
+    private final jwtservice jwtservice;
     private final ReviewService reviewService;
 
-    public ReviewController(ReviewService reviewService) {
+    public ReviewController(ReviewService reviewService, jwtservice jwtservice) {
         this.reviewService = reviewService;
+        this.jwtservice = jwtservice;
     }
 
     @PostMapping("/write")
@@ -88,8 +94,18 @@ public class ReviewController {
         return map;
     }
 
-    @GetMapping("/detail")
-    public ReviewDetailResponse detail(@RequestParam("reviewId") long reviewId) {
+    @GetMapping(value = "/detail", headers = "Authorization")
+    public ReviewDetailResponse detail(
+            @RequestHeader("Authorization") String authorization,
+            @RequestParam("reviewId") long reviewId) {
+
+        // Authorization 헤더값에서 유효한 jwt 토큰 값얻기
+        String jwt = authorization.substring(7);
+        log.info("jwt:" + jwt);
+
+        // 유효성 검사(실패: 런타임 예외 발생)
+        jwtservice.validateJwt(jwt);
+
         Review review = reviewService.getReview(reviewId);
 
         ReviewDetailResponse response = new ReviewDetailResponse();
@@ -156,5 +172,16 @@ public class ReviewController {
         reviewUpdateResponse.setStatus("success");
         return reviewUpdateResponse;
 
+    }
+
+    @DeleteMapping("/delete")
+    public ReviewDeleteResponse delete(@RequestParam("reviewId") long reviewId) {
+        // 서비스를 통해 게시물 삭제
+        reviewService.deleteReview(reviewId);
+
+        // 응답
+        ReviewDeleteResponse reviewDeleteResponse = new ReviewDeleteResponse();
+        reviewDeleteResponse.setStatus("success");
+        return reviewDeleteResponse;
     }
 }

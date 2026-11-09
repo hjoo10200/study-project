@@ -40,4 +40,8 @@ public class ReviewService {
         return reviewDao.update(review);
     }
 
+    public int deleteReview(long reviewId){
+        return reviewDao.deleteById(reviewId);
+    }
+
 }

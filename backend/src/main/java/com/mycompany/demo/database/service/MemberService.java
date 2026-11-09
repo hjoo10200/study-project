@@ -3,12 +3,14 @@ package com.mycompany.demo.database.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import com.mycompany.demo.database.entity.Member;
 import com.mycompany.demo.database.dao.MemberDao;
 import com.mycompany.demo.database.dto.Pager;
+import com.mycompany.demo.database.entity.Member;
+import com.mycompany.demo.exception.DuplicatedMemberIdException;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,9 +31,16 @@ public class MemberService {
         return member;
     }   
 
-    // 현재는 password를 별도 해시 변환 없이 INSERT한다. 암호화 라이브러리를 추가하는 것만으로 해시 저장이 적용되지는 않는다.
+
     public int join(Member member){
-        return memberDao.insert(member);
+        // 비밀번호 암호화
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        member.setPassword(passwordEncoder.encode(member.getPassword()));
+        try {
+            return memberDao.insert(member);
+        } catch (DuplicateKeyException e) {
+            throw new DuplicatedMemberIdException("이미 사용 중인 아이디입니다.");
+        }
 
     }
 
@@ -53,5 +62,22 @@ public class MemberService {
      List<Member> list= memberDao.selectPage(pager, where);    
 
         return list;}
+
+    public String login(Member member){
+        //DB에서 해당 memberId로 member 가져오기
+        Member dbMember = memberDao.selectById(member.getMemberId());
+        if(dbMember == null){
+            return "wrongMemberId";
+        }
+        // 암호비교
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        boolean result = passwordEncoder.matches(member.getPassword(),dbMember.getPassword());
+
+        if(!result){
+            return "wrongpassword";
+        }
+
+        return "success";
+    };
     }
 
